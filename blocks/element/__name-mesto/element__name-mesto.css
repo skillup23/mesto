@@ -7,4 +7,8 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
 }
