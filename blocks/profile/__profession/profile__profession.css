@@ -3,11 +3,19 @@
   font-weight: normal;
   font-size: 18px;
   line-height: 22px;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 768px) {
   .profile__profession {
     font-size: 14px;
     line-height: 17px;
+    justify-self: center;
+    max-width: 282px;
   }
 }

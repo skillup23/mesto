@@ -6,10 +6,17 @@
   background-position: center;
   background-repeat: no-repeat;
   cursor: pointer;
+  background-color: black;
+  padding: 0;
+  transition: opacity 1s linear;
 }
 
 @media screen and (max-width: 768px) {
   .profile__add-button {
     width: 278px;
   }
+}
+
+.profile__add-button:hover{
+  opacity: .7;
 }

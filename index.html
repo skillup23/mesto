@@ -21,53 +21,53 @@
       <section class="profile">
         <img class="profile__avatar" src="images/avatar.jpg" alt="Аватар">
         <div class="profile__info">
-          <h2 class="profile__name normalize__text">Жак-Ив Кусто</h2>
-          <div class="profile__edit-botton"></div>
+          <h1 class="profile__name normalize__text">Жак-Ив Кусто</h1>
+          <button class="profile__edit-botton"></button>
           <p class="profile__profession normalize__text">Исследователь океана</p>
         </div>
-        <div class="profile__add-button"></div>
+        <button class="profile__add-button"></button>
       </section>
 
       <section class="elements">
         <div class="element">
-          <img class="element__foto" src="/images/karachaevsk.jpg">
+          <img class="element__foto" src="/images/karachaevsk.jpg" alt="Карачаевск">
           <div class="element__info">
-            <h3 class="element__name-mesto normalize__text">Карачаевск</h3>
+            <h2 class="element__name-mesto normalize__text">Карачаевск</h2>
             <img class="element__like" src="/images/like.svg" alt="Понравилось">
           </div>
         </div>
         <div class="element">
-          <img class="element__foto" src="/images/karachaevsk.jpg">
+          <img class="element__foto" src="/images/elbrus.jpg" alt="Гора Эльбрус">
           <div class="element__info">
-            <h3 class="element__name-mesto normalize__text">Гора Эльбрус</h3>
+            <h2 class="element__name-mesto normalize__text">Гора Эльбрус</h2>
             <img class="element__like" src="/images/like.svg" alt="Понравилось">
           </div>
         </div>
         <div class="element">
-          <img class="element__foto" src="/images/karachaevsk.jpg">
+          <img class="element__foto" src="/images/donbay.jpg" alt="Домбай">
           <div class="element__info">
-            <h3 class="element__name-mesto normalize__text">Домбай</h3>
+            <h2 class="element__name-mesto normalize__text">Домбай</h2>
             <img class="element__like" src="/images/like.svg" alt="Понравилось">
           </div>
         </div>
         <div class="element">
-          <img class="element__foto" src="/images/karachaevsk.jpg">
+          <img class="element__foto" src="/images/elbrus.jpg" alt="Гора Эльбрус">
           <div class="element__info">
-            <h3 class="element__name-mesto normalize__text">Гора Эльбрус</h3>
+            <h2 class="element__name-mesto normalize__text">Гора Эльбрус</h2>
             <img class="element__like" src="/images/like.svg" alt="Понравилось">
           </div>
         </div>
         <div class="element">
-          <img class="element__foto" src="/images/karachaevsk.jpg">
+          <img class="element__foto" src="/images/donbay.jpg" alt="Домбай">
           <div class="element__info">
-            <h3 class="element__name-mesto normalize__text">Домбай</h3>
+            <h2 class="element__name-mesto normalize__text">Домбай</h2>
             <img class="element__like" src="/images/like.svg" alt="Понравилось">
           </div>
         </div>
         <div class="element">
-          <img class="element__foto" src="/images/karachaevsk.jpg">
+          <img class="element__foto" src="/images/karachaevsk.jpg" alt="Карачаево-Черкессия">
           <div class="element__info">
-            <h3 class="element__name-mesto normalize__text">Карачаево-Черкессия</h3>
+            <h2 class="element__name-mesto normalize__text">Карачаево-Черкессия</h2>
             <img class="element__like" src="/images/like.svg" alt="Понравилось">
           </div>
         </div>
@@ -79,16 +79,17 @@
     </footer>
 
     <section class="popup">
-      <div class="popup__container">
+      <form class="popup__container form">
         <h3 class="popup__title">Редактировать профиль</h3>
-        <p class="popup__name">Жак-Ив Кусто</p>
-        <p class="popup__profession">Исследователь океана</p>
+        <input type="text" class="form__item popup__name" value="srtbrbryndtyndn">
+        <input type="text" class="form__item popup__profession">
+        <input type="submit" class="popup__submit" value="Сохранить">
         <span class="popup__close"></span>
-      </div>
+      </form>
     </section>
 
   </div>
-  <script src="./blocks/popup/popup.js"></script>
+  <script src="./scripts/script.js"></script>
 </body>
 
 </html>

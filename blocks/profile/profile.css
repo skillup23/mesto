@@ -4,6 +4,13 @@
   justify-content: flex-start;
 }
 
+@media screen and (max-width: 935px) {
+  .profile {
+    margin-left: 27px;
+    margin-right: 27px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .profile {
     flex-direction: column;

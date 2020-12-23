@@ -5,4 +5,15 @@
   width: 430px;
   height: 330px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .popup__container {
+    width: 282px;
+    height: 322px;
+  }
 }
