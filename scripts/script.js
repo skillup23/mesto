@@ -46,6 +46,6 @@ const like = document.querySelectorAll('.element__like')
 
 like.forEach(function(clickLike){
 	clickLike.addEventListener('click', function(){
-    clickLike.setAttribute('src', '/images/like-active.svg')
+    clickLike.setAttribute('src', 'images/like-active.svg')
   })
 })
