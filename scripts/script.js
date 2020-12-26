@@ -1,51 +1,45 @@
-const popupopen = document.querySelector('.profile__edit-botton');
-const popup = document.querySelector('.popup');
-const popupclose = popup.querySelector('.popup__close')
-const popupsave = popup.querySelector('.popup__submit')
+//объявляем все переменные
+let popupopen = document.querySelector('.profile__edit-botton');
+let popup = document.querySelector('.popup');
+let popupclose = popup.querySelector('.popup__close');
+let popupName = popup.querySelector('.form__item_name');
+let popupProfession = popup.querySelector('.form__item_profession');
+let profileName = document.querySelector('.profile__name');
+let profileProfession = document.querySelector('.profile__profession');
+let formElement = popup.querySelector('.popup__container');
 
-const togglePopup = function () {
-  popup.classList.toggle('popup_active');
+//Функция открытия попапа и автозаполнения содержимого имени и профессии
+let openPopup = function () {
+  popup.classList.add('popup_active');
+  popupName.value = profileName.textContent;
+  popupProfession.value = profileProfession.textContent;
 }
 
-popupopen.addEventListener('click', togglePopup);
-popupclose.addEventListener('click', togglePopup);
-popupsave.addEventListener('click', togglePopup);
+//Функция закрытия попапа
+let closePopup = function () {
+  popup.classList.remove('popup_active');
+}
 
-popup.addEventListener('click', function(event) {
-  if (event.target === event.currentTarget){
-    popup.classList.toggle('popup_active');
-  }
-})
-// Конец кода про попап
-
-// Ниже код автозаполнения форм при открытии попапа
-const popupName = popup.querySelector('.popup__name');
-const profileName = document.querySelector('.profile__name');
-popupName.setAttribute('value', profileName.textContent);
-
-const popupProfession = popup.querySelector('.popup__profession');
-const profileProfession = document.querySelector('.profile__profession');
-popupProfession.setAttribute('value', profileProfession.textContent);
-// конец кода автозаолнения форм
-
-// Ниже код с кнопкой Сохранить и изменением текста
-const formElement = popup.querySelector('.popup__container');
-
+//Функция внесения изменений при нажатии на сохранить и закрытие попапа
 function handleFormSubmit (evt) {
   evt.preventDefault(); 
-  profileName.textContent = popupName.value
-  profileProfession.textContent = popupProfession.value
+  profileName.textContent = popupName.value;
+  profileProfession.textContent = popupProfession.value;
+  closePopup();
 }
 
+//Сохранение изменений и закрытие попапа при нажатии на сохранить
 formElement.addEventListener('submit', handleFormSubmit);
-// Конец кода с кнопкой Сохранить и изменением текста
 
-//Делаем лайки
+//Открытие попапа на кнопку редактировать
+popupopen.addEventListener('click', openPopup);
 
-const like = document.querySelectorAll('.element__like')
+//Закрытие попапа на крестик
+popupclose.addEventListener('click', closePopup);
 
-like.forEach(function(clickLike){
-	clickLike.addEventListener('click', function(){
-    clickLike.setAttribute('src', 'images/like-active.svg')
-  })
+//Закрытие попапа кликом на задний фон
+popup.addEventListener('click', function(event) {
+  if (event.target === event.currentTarget){
+    closePopup();
+  }
 })

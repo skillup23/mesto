@@ -21,5 +21,9 @@
 }
 
 .profile__edit-botton:hover{
-  opacity: .7;
+  opacity: .6;
+}
+
+.profile__edit-botton:focus {
+  outline: none;
 }

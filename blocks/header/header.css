@@ -5,4 +5,8 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
+  content: '';
+  align-self: stretch;
+  border-bottom: 1px solid;
+  border-color: rgba(84, 84, 84, .7);
 }

@@ -13,7 +13,6 @@
 
     <header class="header">
       <img class="header__logo" src="./images/header-logo.svg" alt="Логотип">
-      <div class="header__line"></div>
     </header>
 
     <main class="content">
@@ -22,55 +21,55 @@
         <img class="profile__avatar" src="images/avatar.jpg" alt="Аватар">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__edit-botton"></button>
+          <button type="button" aria-label="Редактировать" class="profile__edit-botton"></button>
           <p class="profile__profession">Исследователь океана</p>
         </div>
-        <button class="profile__add-button"></button>
+        <button type="button" class="profile__add-button"></button>
       </section>
 
       <section class="elements">
-        <div class="element">
+        <article class="element">
           <img class="element__foto" src="images/karachaevsk.jpg" alt="Карачаевск">
           <div class="element__info">
             <h2 class="element__name-mesto">Карачаевск</h2>
-            <img class="element__like" src="images/like.svg" alt="Понравилось">
+            <button type="button" class="element__like"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img class="element__foto" src="images/elbrus.jpg" alt="Гора Эльбрус">
           <div class="element__info">
             <h2 class="element__name-mesto">Гора Эльбрус</h2>
-            <img class="element__like" src="images/like.svg" alt="Понравилось">
+            <button type="button" class="element__like"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img class="element__foto" src="images/donbay.jpg" alt="Домбай">
           <div class="element__info">
             <h2 class="element__name-mesto">Домбай</h2>
-            <img class="element__like" src="images/like.svg" alt="Понравилось">
+            <button type="button" class="element__like"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img class="element__foto" src="images/elbrus.jpg" alt="Гора Эльбрус">
           <div class="element__info">
             <h2 class="element__name-mesto">Гора Эльбрус</h2>
-            <img class="element__like" src="images/like.svg" alt="Понравилось">
+            <button type="button" class="element__like"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img class="element__foto" src="images/donbay.jpg" alt="Домбай">
           <div class="element__info">
             <h2 class="element__name-mesto">Домбай</h2>
-            <img class="element__like" src="images/like.svg" alt="Понравилось">
+            <button type="button" class="element__like"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img class="element__foto" src="images/karachaevsk.jpg" alt="Карачаево-Черкессия">
           <div class="element__info">
             <h2 class="element__name-mesto">Карачаево-Черкессия</h2>
-            <img class="element__like" src="images/like.svg" alt="Понравилось">
+            <button type="button" class="element__like"></button>
           </div>
-        </div>
+        </article>
       </section>
     </main>
 
@@ -79,12 +78,12 @@
     </footer>
 
     <section class="popup">
-      <form class="popup__container form">
+      <form class="popup__container form" method="get" name="redaktor">
         <h3 class="popup__title">Редактировать профиль</h3>
-        <input type="text" class="form__item popup__name" value="srtbrbryndtyndn">
-        <input type="text" class="form__item popup__profession">
-        <input type="submit" class="popup__submit" value="Сохранить">
-        <span class="popup__close"></span>
+        <input type="text" class="form__item form__item_name" value="" name="popupname">
+        <input type="text" class="form__item form__item_profession" value="" name="popupprofession">
+        <button type="submit" class="popup__submit">Сохранить</button>
+        <button type="button" class="popup__close"></button>
       </form>
     </section>
 
