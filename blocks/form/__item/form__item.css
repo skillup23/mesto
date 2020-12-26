@@ -12,7 +12,6 @@
   line-height: 17px;
   justify-self: start;
   color: black;
-  font-family: inherit;
 }
 
 @media screen and (max-width: 768px) {
