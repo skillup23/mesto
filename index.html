@@ -21,15 +21,16 @@
         <img class="profile__avatar" src="images/avatar.jpg" alt="Аватар">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button type="button" aria-label="Редактировать" class="profile__edit-botton"></button>
+          <button type="button" aria-label="Редактировать" class="profile__edit-button"></button>
           <p class="profile__profession">Исследователь океана</p>
         </div>
         <button type="button" class="profile__add-button"></button>
       </section>
 
       <section class="elements">
-        <article class="element">
-          <img class="element__foto" src="images/karachaevsk.jpg" alt="Карачаевск">
+        <!--<article class="element">
+          <img class="element__foto" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg" alt="Карачаевск">
+          <button type="button" class="element__delete"></button>
           <div class="element__info">
             <h2 class="element__name-mesto">Карачаевск</h2>
             <button type="button" class="element__like"></button>
@@ -49,7 +50,7 @@
             <button type="button" class="element__like"></button>
           </div>
         </article>
-        <article class="element">
+        <!--<article class="element">
           <img class="element__foto" src="images/elbrus.jpg" alt="Гора Эльбрус">
           <div class="element__info">
             <h2 class="element__name-mesto">Гора Эльбрус</h2>
@@ -69,7 +70,7 @@
             <h2 class="element__name-mesto">Карачаево-Черкессия</h2>
             <button type="button" class="element__like"></button>
           </div>
-        </article>
+        </article>-->
       </section>
     </main>
 
@@ -77,16 +78,36 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
 
-    <section class="popup">
-      <form class="popup__container form" method="get" name="redaktor">
+    <section class="popup popup_edit">
+      <form class="popup__container form__edit" method="get" name="redaktor">
         <h3 class="popup__title">Редактировать профиль</h3>
         <input type="text" class="form__item form__item_profile_name" value="">
         <input type="text" class="form__item form__item_profile_profession" value="">
         <button type="submit" class="popup__submit">Сохранить</button>
-        <button type="button" class="popup__close"></button>
+        <button type="button" class="popup__close popup__close_edit"></button>
       </form>
     </section>
 
+    <section class="popup popup_add">
+      <form class="popup__container form__addcard" method="get" name="add-card">
+        <h3 class="popup__title">Новое место</h3>
+        <input type="text" class="form__item form__item_namemesto" value="" placeholder="Название">
+        <input type="text" class="form__item form__item_linkfoto" value="" placeholder="Ссылка на картинку">
+        <button type="submit" class="popup__submit">Сохранить</button>
+        <button type="button" class="popup__close popup__close_addcard"></button>
+      </form>
+    </section>
+
+    <template class="element_template">
+      <article class="element">
+        <img class="element__foto" alt="Фото места">
+        <button type="button" class="element__delete"></button>
+        <div class="element__info">
+          <h2 class="element__name-mesto"></h2>
+          <button type="button" class="element__like"></button>
+        </div>
+      </article>
+    </template>
   </div>
   <script src="./scripts/script.js"></script>
 </body>
