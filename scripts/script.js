@@ -1,12 +1,27 @@
 //объявляем все переменные
-let popupopen = document.querySelector('.profile__edit-button');
-let popup = document.querySelector('.popup_edit');
-let popupclose = popup.querySelector('.popup__close_edit');
-let popupName = popup.querySelector('.form__item_profile_name');
-let popupProfession = popup.querySelector('.form__item_profile_profession');
-let profileName = document.querySelector('.profile__name');
-let profileProfession = document.querySelector('.profile__profession');
-let formElement = popup.querySelector('.form__edit');
+const popupopen = document.querySelector('.profile__edit-button');
+const popup = document.querySelector('.popup__edit');
+const popupclose = popup.querySelector('.popup__close_edit');
+const popupName = popup.querySelector('.form__item_profile_name');
+const popupProfession = popup.querySelector('.form__item_profile_profession');
+const profileName = document.querySelector('.profile__name');
+const profileProfession = document.querySelector('.profile__profession');
+const formElement = popup.querySelector('.form__edit');
+//Переменные карточек
+const elementTemplate = document.querySelector('.element_template').content;
+const elements = document.querySelector('.elements');
+//Переменные кнопки 'добавить карточку'
+const popupopenAddcard = document.querySelector('.profile__add-button');
+const popupAddcard = document.querySelector('.popup__add');
+const popupcloseAddcard = popupAddcard.querySelector('.popup__close_addcard');
+const formElementAddcard = popupAddcard.querySelector('.form__addcard');
+//Переменные открытия фото
+// const popupopenPhoto = document.querySelector('.element__foto_full');
+const popupPhoto = document.querySelector('.popup__mesto');
+const popupclosePhoto = popupPhoto.querySelector('.popup__close_mesto');
+const photo = popupPhoto.querySelector('.popup__photo');
+const textPhoto = popupPhoto.querySelector('.popup__textphoto');
+
 
 //Функция открытия попапа редактирования и автозаполнения содержимого имени и профессии
 let openPopup = function () {
@@ -76,9 +91,7 @@ const initialCards = [
   }
 ]; 
 
-//Переменные карточек
-const elementTemplate = document.querySelector('.element_template').content;
-const elements = document.querySelector('.elements');
+
 
 //Функция перебора массива
 function addcard() {
@@ -88,10 +101,30 @@ function addcard() {
 //Функция добавление карточек по template
 function addcardMassiv(elem) {
   const htmlElement = elementTemplate.cloneNode(true);
-  htmlElement.querySelector('.element__name-mesto').textContent = elem.name;
-  htmlElement.querySelector('.element__foto').src = elem.link;
+  const elementName = htmlElement.querySelector('.element__name-mesto');
+  const elementPhoto = htmlElement.querySelector('.element__foto');
+  elementName.textContent = elem.name;
+  elementPhoto.src = elem.link;
 
+  //слушатель удалить карточку
+  htmlElement.querySelector('.element__delete').addEventListener('click', cardDelete);
+  //слушатель лайка
+  htmlElement.querySelector('.element__like').addEventListener('click', function(evt) {
+    evt.target.classList.toggle('element__like_active');
+  });
+  //слушатель фото
+  htmlElement.querySelector('.element__foto').addEventListener('click', function(evt) {
+    evt.target.closest('.element__foto');
+    popupPhoto.classList.add('popup_active');
+    photo.src = elementPhoto.src;
+    textPhoto.textContent = elementName.textContent;
+  });
   elements.appendChild(htmlElement);
+}
+
+//Функция удаления карточки при нажатии на корзинку
+function cardDelete(evt) {
+  evt.target.closest('.element').remove();
 }
 
 //Вызов функции перебора массива
@@ -101,14 +134,11 @@ addcard()
 
 // Код добавления попапа 'добавить карточку'............................................
 
-//Переменные кнопки 'добавить карточку'
-let popupopenAddcard = document.querySelector('.profile__add-button');
-let popupAddcard = document.querySelector('.popup_add');
-let popupcloseAddcard = popupAddcard.querySelector('.popup__close_addcard');
-let formElementAddcard = popupAddcard.querySelector('.form__addcard');
+
 
 //Функция открытия попапа 'добавить карточку'
 let openPopupAdd = function () {
+  popupAddcard.querySelector('.form__addcard').reset();
   popupAddcard.classList.add('popup_active');
 }
 
@@ -131,12 +161,27 @@ popupAddcard.addEventListener('click', function(event) {
 })
 
 
-//Функция добавления новой карточки
+//Функция создания новой карточки
 function addcardOne(a, b) {
   const htmlElement = elementTemplate.cloneNode(true);
-  htmlElement.querySelector('.element__name-mesto').textContent = a;
-  htmlElement.querySelector('.element__foto').src = b;
+  const elementName = htmlElement.querySelector('.element__name-mesto');
+  const elementPhoto = htmlElement.querySelector('.element__foto');
+  elementName.textContent = a;
+  elementPhoto.src = b;
 
+  //слушатель удалить карточку
+  htmlElement.querySelector('.element__delete').addEventListener('click', cardDelete);
+  //слушатель лайка
+  htmlElement.querySelector('.element__like').addEventListener('click', function(evt) {
+    evt.target.classList.toggle('element__like_active');
+  });
+  //слушатель фото
+  htmlElement.querySelector('.element__foto').addEventListener('click', function(evt) {
+    evt.target.closest('.element__foto');
+    popupPhoto.classList.add('popup_active');
+    photo.src = elementPhoto.src;
+    textPhoto.textContent = elementName.textContent;
+  });
   elements.prepend(htmlElement);
 }
 
@@ -153,3 +198,31 @@ function handleFormSubmitAddcard (evt) {
 //Сохранение изменений и закрытие попапа при нажатии на сохранить
 formElementAddcard.addEventListener('submit', handleFormSubmitAddcard);
 
+
+
+
+
+//Функция открытия попапа фото
+ function openPopupPhoto() {
+  popupPhoto.classList.add('popup_active');
+ }
+
+//Функция закрытия попапа фото
+let closePopupPhoto = function () {
+  popupPhoto.classList.remove('popup_active');
+}
+
+//Открытие попапа фото при клике на изображение
+// popupopenPhoto.addEventListener('click', function(evt) {
+//   evt.target.openPopupPhoto();
+// });
+
+//Закрытие попапа фото на крестик
+popupclosePhoto.addEventListener('click', closePopupPhoto);
+
+//Закрытие попапа фото кликом на задний фон
+popupPhoto.addEventListener('click', function(event) {
+  if (event.target === event.currentTarget){
+    closePopupPhoto();
+  }
+})
