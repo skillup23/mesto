@@ -17,7 +17,6 @@ const popupAddcard = document.querySelector('.popup_type_new-card');
 const popupcloseAddcard = popupAddcard.querySelector('.popup__close_addcard');
 const formElementAddcard = popupAddcard.querySelector('.form_type_addcard');
 //Переменные открытия фото
-// const popupopenPhoto = document.querySelector('.element__foto_full');
 const popupPhoto = document.querySelector('.popup_type_image');
 const popupclosePhoto = popupPhoto.querySelector('.popup__close_mesto');
 const photo = popupPhoto.querySelector('.popup__photo');
