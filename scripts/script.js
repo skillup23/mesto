@@ -1,24 +1,24 @@
 //Переменные редактирования раздела Ученый
 const popupopen = document.querySelector('.profile__edit-button');
 const pop = document.querySelector('.popup');
-const popup = document.querySelector('.popup__edit');
-const popupclose = popup.querySelector('.popup__close');
+const popup = document.querySelector('.popup_type_edit');
+const popupclose = popup.querySelector('.popup__close_edit');
 const popupName = popup.querySelector('.form__item_profile_name');
 const popupProfession = popup.querySelector('.form__item_profile_profession');
 const profileName = document.querySelector('.profile__name');
 const profileProfession = document.querySelector('.profile__profession');
-const formElement = popup.querySelector('.form__edit');
+const formElement = popup.querySelector('.form_type_edit');
 //Переменные карточек массива
 const elementTemplate = document.querySelector('.element_template').content;
 const elements = document.querySelector('.elements');
 //Переменные кнопки 'добавить карточку'
 const popupopenAddcard = document.querySelector('.profile__add-button');
-const popupAddcard = document.querySelector('.popup__add');
+const popupAddcard = document.querySelector('.popup_type_new-card');
 const popupcloseAddcard = popupAddcard.querySelector('.popup__close_addcard');
-const formElementAddcard = popupAddcard.querySelector('.form__addcard');
+const formElementAddcard = popupAddcard.querySelector('.form_type_addcard');
 //Переменные открытия фото
 // const popupopenPhoto = document.querySelector('.element__foto_full');
-const popupPhoto = document.querySelector('.popup__mesto');
+const popupPhoto = document.querySelector('.popup_type_image');
 const popupclosePhoto = popupPhoto.querySelector('.popup__close_mesto');
 const photo = popupPhoto.querySelector('.popup__photo');
 const textPhoto = popupPhoto.querySelector('.popup__textphoto');
@@ -151,7 +151,7 @@ popupopen.addEventListener('click', function() {
 
 //Открытие попапа Карточка на кнопку 'добавить карточку'
 popupopenAddcard.addEventListener('click', function() {
-  popupAddcard.querySelector('.form__addcard').reset();
+  formElementAddcard.reset();
   openPopup(popupAddcard);
 });
 

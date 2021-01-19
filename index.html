@@ -50,7 +50,7 @@
             <button type="button" class="element__like"></button>
           </div>
         </article>
-        <!--<article class="element">
+        <article class="element">
           <img class="element__foto" src="images/elbrus.jpg" alt="Гора Эльбрус">
           <div class="element__info">
             <h2 class="element__name-mesto">Гора Эльбрус</h2>
@@ -78,8 +78,8 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
 
-    <section class="popup popup__edit">
-      <form class="popup__container form__edit" method="get" name="redaktor">
+    <section class="popup popup_type_edit">
+      <form class="popup__container form_type_edit" method="get" name="redaktor">
         <h3 class="popup__title">Редактировать профиль</h3>
         <input type="text" class="form__item form__item_profile_name" value="">
         <input type="text" class="form__item form__item_profile_profession" value="">
@@ -88,8 +88,8 @@
       </form>
     </section>
 
-    <section class="popup popup__add">
-      <form class="popup__container form__addcard" method="get" name="add-card">
+    <section class="popup popup_type_new-card">
+      <form class="popup__container form_type_addcard" method="get" name="add-card">
         <h3 class="popup__title">Новое место</h3>
         <input type="text" class="form__item form__item_namemesto" value="" placeholder="Название">
         <input type="text" class="form__item form__item_linkfoto" value="" placeholder="Ссылка на картинку">
@@ -98,9 +98,9 @@
       </form>
     </section>
 
-    <section class="popup popup__mesto">
-      <div class="popup__container_photo">
-        <img class="popup__photo" alt="Фото места">
+    <section class="popup popup_type_image">
+      <div class="popup__photoconteiner">
+        <img class="popup__photo" src="#" alt="Фото места">
         <h3 class="popup__textphoto"></h3>
         <button type="button" class="popup__close popup__close_mesto"></button>
       </div>
@@ -108,7 +108,7 @@
 
     <template class="element_template">
       <article class="element">
-        <img class="element__foto element__foto_full" alt="Фото места">
+        <img class="element__foto element__foto_full" src="#" alt="Фото места">
         <button type="button" class="element__delete"></button>
         <div class="element__info">
           <h2 class="element__name-mesto"></h2>
