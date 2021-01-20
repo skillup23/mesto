@@ -1,6 +1,5 @@
 //Переменные редактирования раздела Ученый
 const popupopen = document.querySelector('.profile__edit-button');
-const pop = document.querySelector('.popup');
 const popup = document.querySelector('.popup_type_edit');
 const popupclose = popup.querySelector('.popup__close_edit');
 const popupName = popup.querySelector('.form__item_profile_name');
@@ -51,13 +50,17 @@ const initialCards = [
 ]; 
 
 
-
-
 //Функции....................................................................
+
 
 //Функция открытия попапа
 function openPopup(elem) {
   elem.classList.add('popup_active');
+  elem.addEventListener('click', function(event) {
+    if (event.target === event.currentTarget){
+      closePopup(elem);
+    };
+  })
 }
 
 //Функция закрытия попапа
@@ -74,28 +77,24 @@ function handleFormSubmit (evt) {
 }
 
 //Функция перебора массива
-function addcard() {
-  initialCards.forEach(addcardMassiv);
+function massiv() {
+  initialCards.forEach(createCard);
 }
 
-//Функция добавление карточек из массива
-function addcardMassiv(elem) {
+// //Функция создания карточек
+function createCard(elem) {
   const htmlElement = elementTemplate.cloneNode(true);
   htmlElement.querySelector('.element__name-mesto').textContent = elem.name;
   htmlElement.querySelector('.element__foto').src = elem.link;
+  htmlElement.querySelector('.element__foto').alt = elem.name;
 
   setListeners(htmlElement);
-  elements.appendChild(htmlElement);
+  addcard(elements, htmlElement);
 }
 
-//Функция создания новой карточки
-function addcardOne(a, b) {
-  const htmlElement = elementTemplate.cloneNode(true);
-  htmlElement.querySelector('.element__name-mesto').textContent = a;
-  htmlElement.querySelector('.element__foto').src = b;
-
-  setListeners(htmlElement);
-  elements.prepend(htmlElement);
+//Функция добавления карточек
+function addcard(container, cardElement) {
+  container.prepend(cardElement);
 }
 
 //Функция слушателей удаления, лайка и попапа Фото
@@ -119,10 +118,12 @@ function setListeners(element) {
 //Функция добавления новой карточки при нажатии на сохранить и закрытие попапа
 function handleFormSubmitAddcard (evt) {
   evt.preventDefault();
-  const popupNamemesto = popupAddcard.querySelector('.form__item_namemesto').value;
-  const popupLinkfoto = popupAddcard.querySelector('.form__item_linkfoto').value;
+  const object = {     // Привожу к объекту значения из формы
+    name: popupAddcard.querySelector('.form__item_namemesto').value,
+    link: popupAddcard.querySelector('.form__item_linkfoto').value
+  };
 
-  addcardOne(popupNamemesto, popupLinkfoto);
+  createCard(object);
   closePopup(popupAddcard);
 }
 
@@ -134,8 +135,7 @@ function cardDelete(evt) {
 
 
 //Вызов функции перебора массива
-addcard()
-
+massiv()
 
 
 
@@ -175,25 +175,3 @@ formElement.addEventListener('submit', handleFormSubmit);
 
 //Сохранение изменений и закрытие попапа при нажатии на сохранить
 formElementAddcard.addEventListener('submit', handleFormSubmitAddcard);
-
-
-//Закрытие попапа Ученый кликом на задний фон
-pop.addEventListener('click', function(event) {
-  if (event.target === event.currentTarget){
-    closePopup(popup);
-  };
-})
-
-//Закрытие попапа 'добавить карточку' кликом на задний фон
-popupAddcard.addEventListener('click', function(event) {
-  if (event.target === event.currentTarget){
-    closePopup(popupAddcard);
-  };
-})
-
-// Закрытие попапа Фото кликом на задний фон
-popupPhoto.addEventListener('click', function(event) {
-  if (event.target === event.currentTarget){
-    closePopup(popupPhoto);
-  };
-})

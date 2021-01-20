@@ -30,6 +30,7 @@
       <section class="elements">
 
       </section>
+
     </main>
 
     <footer class="footer">
@@ -49,8 +50,8 @@
     <section class="popup popup_type_new-card">
       <form class="popup__container form form_type_addcard" method="get" name="add-card">
         <h3 class="popup__title">Новое место</h3>
-        <input type="text" class="form__item form__item_namemesto" value="" placeholder="Название">
-        <input type="text" class="form__item form__item_linkfoto" value="" placeholder="Ссылка на картинку">
+        <input type="text" required class="form__item form__item_namemesto" value="" placeholder="Название">
+        <input type="url" required class="form__item form__item_linkfoto" value="" placeholder="Ссылка на картинку">
         <button type="submit" class="popup__submit">Сохранить</button>
         <button type="button" class="popup__close popup__close_addcard"></button>
       </form>
