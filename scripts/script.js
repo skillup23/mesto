@@ -57,16 +57,23 @@ const initialCards = [
 function openPopup(elem) {
   elem.classList.add('popup_active');
   elem.addEventListener('click', function(event) {
-    if (event.target === event.currentTarget){
-      closePopup(elem);
-    };
-  })
+    if (event.target === event.currentTarget){        //если выводить в отдельную функцию, то 
+      closePopup(elem);                               // elem в closePopup становиться неизвестным элементом
+    }
+  });
 }
 
 //Функция закрытия попапа
 function closePopup(elem) {
   elem.classList.remove('popup_active');
+  elem.removeEventListener('click', function(event) {
+    if (event.target === event.currentTarget){
+      closePopup(elem);
+    }
+  });
 }
+
+
 
 //Функция внесения изменений при нажатии на сохранить и закрытие попапа Ученый
 function handleFormSubmit (evt) {
@@ -77,16 +84,18 @@ function handleFormSubmit (evt) {
 }
 
 //Функция перебора массива
-function massiv() {
+function pereborMassiva() {
   initialCards.forEach(createCard);
 }
 
 // //Функция создания карточек
 function createCard(elem) {
   const htmlElement = elementTemplate.cloneNode(true);
-  htmlElement.querySelector('.element__name-mesto').textContent = elem.name;
-  htmlElement.querySelector('.element__foto').src = elem.link;
-  htmlElement.querySelector('.element__foto').alt = elem.name;
+  const nameMestoElem = htmlElement.querySelector('.element__name-mesto');
+  const fotoElem = htmlElement.querySelector('.element__foto');
+  nameMestoElem.textContent = elem.name;
+  fotoElem.src = elem.link;
+  fotoElem.alt = elem.name;
 
   setListeners(htmlElement);
   addcard(elements, htmlElement);
@@ -111,6 +120,7 @@ function setListeners(element) {
     const elementName = evt.target.closest('.element').querySelector('.element__name-mesto');
     const elementPhoto = evt.target.closest('.element__foto');
     photo.src = elementPhoto.src;
+    photo.alt = elementName.textContent;
     textPhoto.textContent = elementName.textContent;
   });
 }
@@ -135,7 +145,7 @@ function cardDelete(evt) {
 
 
 //Вызов функции перебора массива
-massiv()
+pereborMassiva()
 
 
 
