@@ -56,22 +56,14 @@ const initialCards = [
 //Функция открытия попапа
 function openPopup(elem) {
   elem.classList.add('popup_active');
-  elem.addEventListener('click', function(event) {
-    if (event.target === event.currentTarget){        //если выводить в отдельную функцию, то 
-      closePopup(elem);                               // elem в closePopup становиться неизвестным элементом
-    }
-  });
 }
 
 //Функция закрытия попапа
 function closePopup(elem) {
   elem.classList.remove('popup_active');
-  elem.removeEventListener('click', function(event) {
-    if (event.target === event.currentTarget){
-      closePopup(elem);
-    }
-  });
 }
+
+
 
 
 
@@ -84,7 +76,7 @@ function handleFormSubmit (evt) {
 }
 
 //Функция перебора массива
-function pereborMassiva() {
+function cardsInitialization() {
   initialCards.forEach(createCard);
 }
 
@@ -98,11 +90,11 @@ function createCard(elem) {
   fotoElem.alt = elem.name;
 
   setListeners(htmlElement);
-  addcard(elements, htmlElement);
+  addCard(elements, htmlElement);
 }
 
 //Функция добавления карточек
-function addcard(container, cardElement) {
+function addCard(container, cardElement) {
   container.prepend(cardElement);
 }
 
@@ -145,7 +137,7 @@ function cardDelete(evt) {
 
 
 //Вызов функции перебора массива
-pereborMassiva()
+cardsInitialization()
 
 
 
