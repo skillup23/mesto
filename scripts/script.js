@@ -56,24 +56,21 @@ const initialCards = [
 //Функция открытия попапа
 function openPopup(elem) {
   elem.classList.add('popup_active');
-  elem.addEventListener('click', function(event) {
-    if (event.target === event.currentTarget){        //если выводить в отдельную функцию, то 
-      closePopup(elem);                               // elem в closePopup становиться неизвестным элементом
-    }
-  });
+  elem.addEventListener('click', closeOverlay);
 }
 
 //Функция закрытия попапа
 function closePopup(elem) {
   elem.classList.remove('popup_active');
-  elem.removeEventListener('click', function(event) {
-    if (event.target === event.currentTarget){
-      closePopup(elem);
-    }
-  });
+  elem.removeEventListener('click', closeOverlay);
 }
 
-
+function closeOverlay(event) {
+  if (event.target === event.currentTarget){
+    event.target.closest('.popup').classList.remove('popup_active');
+    event.target.closest('.popup').removeEventListener('click', closeOverlay);
+  }
+}
 
 
 
