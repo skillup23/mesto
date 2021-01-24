@@ -55,14 +55,24 @@ const initialCards = [
 
 //Функция открытия попапа
 function openPopup(elem) {
-  elem.classList.add('popup_active');//к сожалению, потратив уйма часов(правда правда) 
-}                                    // я не смог это решить (отдельно вывести функцию закрытия при клике по оверлею)
-                                    // это будет требованием в проектной №6. надеюсь к тому времени осилю. Видимо туповат)))
+  elem.classList.add('popup_active');
+  elem.addEventListener('click', function(event) {
+    if (event.target === event.currentTarget){        //если выводить в отдельную функцию, то 
+      closePopup(elem);                               // elem в closePopup становиться неизвестным элементом
+    }
+  });
+}
 
 //Функция закрытия попапа
 function closePopup(elem) {
   elem.classList.remove('popup_active');
+  elem.removeEventListener('click', function(event) {
+    if (event.target === event.currentTarget){
+      closePopup(elem);
+    }
+  });
 }
+
 
 
 
@@ -77,7 +87,7 @@ function handleFormSubmit (evt) {
 }
 
 //Функция перебора массива
-function cardsInitialization() {
+function pereborMassiva() {
   initialCards.forEach(createCard);
 }
 
@@ -91,11 +101,11 @@ function createCard(elem) {
   fotoElem.alt = elem.name;
 
   setListeners(htmlElement);
-  addCard(elements, htmlElement);
+  addcard(elements, htmlElement);
 }
 
 //Функция добавления карточек
-function addCard(container, cardElement) {
+function addcard(container, cardElement) {
   container.prepend(cardElement);
 }
 
@@ -138,13 +148,13 @@ function cardDelete(evt) {
 
 
 //Вызов функции перебора массива
-cardsInitialization()
+pereborMassiva()
 
 
 
 //Слушатели событий...................................................
 
-//Открытие попапа Ученый на кнопку редактировать
+//Открытие попапа Ученый на кнопку редактироватьd
 popupopen.addEventListener('click', function() {
   popupName.value = profileName.textContent;
   popupProfession.value = profileProfession.textContent;
