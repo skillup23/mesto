@@ -21,6 +21,7 @@ const popupclosePhoto = popupPhoto.querySelector('.popup__close_mesto');
 const photo = popupPhoto.querySelector('.popup__photo');
 const textPhoto = popupPhoto.querySelector('.popup__textphoto');
 
+
 //Массив
 const initialCards = [
   {
@@ -65,9 +66,11 @@ function closePopup(elem) {
   elem.removeEventListener('click', closeOverlay);
 }
 
+//Функция закрытия попапа кликом по оверлею
 function closeOverlay(event) {
   if (event.target === event.currentTarget){
-    event.target.closest('.popup').classList.remove('popup_active');
+    const popupActive = document.querySelector('.popup_active');
+    closePopup(popupActive);
     event.target.closest('.popup').removeEventListener('click', closeOverlay);
   }
 }
