@@ -71,7 +71,6 @@ function closeOverlay(event) {
   if (event.target === event.currentTarget){
     const popupActive = document.querySelector('.popup_active');
     closePopup(popupActive);
-    event.target.closest('.popup').removeEventListener('click', closeOverlay);
   }
 }
 
