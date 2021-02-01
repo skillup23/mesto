@@ -1,10 +1,9 @@
 .form__item {
   width: 358px;
   margin: 0;
-  padding: 13px 0 13px 0;
+  padding: 10px 0 5px 0;
   border: 0;
   border-bottom: 1px solid rgba(0,0,0,0.2);
-  margin-bottom: 17px;
   font-family: inherit;
   font-style: normal;
   font-weight: 400;
@@ -12,6 +11,7 @@
   line-height: 17px;
   justify-self: start;
   color: black;
+  outline: none;
 }
 
 @media screen and (max-width: 768px) {

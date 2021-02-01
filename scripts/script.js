@@ -58,17 +58,27 @@ const initialCards = [
 function openPopup(elem) {
   elem.classList.add('popup_active');
   elem.addEventListener('click', closeOverlay);
+  document.addEventListener('keydown', closeOverlayEsc);
 }
 
 //Функция закрытия попапа
 function closePopup(elem) {
   elem.classList.remove('popup_active');
   elem.removeEventListener('click', closeOverlay);
+  document.removeEventListener('keydown', closeOverlayEsc);
 }
 
 //Функция закрытия попапа кликом по оверлею
 function closeOverlay(event) {
   if (event.target === event.currentTarget){
+    const popupActive = document.querySelector('.popup_active');
+    closePopup(popupActive);
+  }
+}
+
+//Функция закрытия попапа на Escape
+function closeOverlayEsc(evt) {
+  if (evt.key === 'Escape') {
     const popupActive = document.querySelector('.popup_active');
     closePopup(popupActive);
   }
