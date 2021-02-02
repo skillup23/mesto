@@ -10,7 +10,7 @@ const selectors = {
 
 //функция появления ошибки при не валидации
 const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.add(selectors.inputErrorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(selectors.errorClass);
@@ -18,7 +18,7 @@ const showInputError = (formElement, inputElement, errorMessage) => {
 
 //функция скрытия ошибки при валидации
 const hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.remove(selectors.inputErrorClass);
   errorElement.classList.remove(selectors.errorClass);
   errorElement.textContent = '';
