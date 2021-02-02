@@ -14,7 +14,7 @@ const elements = document.querySelector('.elements');
 const popupopenAddcard = document.querySelector('.profile__add-button');
 const popupAddcard = document.querySelector('.popup_type_new-card');
 const popupcloseAddcard = popupAddcard.querySelector('.popup__close_addcard');
-const formElementAddcard = popupAddcard.querySelector('.form_type_addcard');
+const formElementAddcard = document.forms.addcard;
 //Переменные открытия фото
 const popupPhoto = document.querySelector('.popup_type_image');
 const popupclosePhoto = popupPhoto.querySelector('.popup__close_mesto');
