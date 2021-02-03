@@ -1,3 +1,13 @@
+const selectors = {
+  formSelector: '.form',
+  inputSelector: '.form__item',
+  setSelector: '.form__set',
+  submitButtonSelector: '.form__submit',
+  inactiveButtonClass: 'popup__submit_inactive',
+  inputErrorClass: 'form__item_type_error',
+  errorClass: 'form__input-error_active'
+};
+
 //функция появления ошибки при не валидации
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
@@ -28,6 +38,7 @@ const checkInputValidity = (formElement, inputElement) => {
 const setEventListeners = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll(selectors.inputSelector));
   const buttonElement = formElement.querySelector(selectors.submitButtonSelector);
+  toggleButtonState(inputList, buttonElement);
   //вешаем на каждый input слушатель с проверкой на валидность и состояние кнопки сохранить
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
@@ -38,7 +49,7 @@ const setEventListeners = (formElement) => {
 };
 
 //раскладываем формы на отдельные
-function enableValidation() {
+function enableValidation(selectors) {
   const formList = Array.from(document.querySelectorAll(selectors.formSelector));// Найдём все формы и сделаем из них массив
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', function (evt) {
@@ -51,10 +62,8 @@ function enableValidation() {
   });
 }
 
-//я понимаю что спрашивать нельзя, но в слак мне так и не ответили - как быть с тем что валидация срабатывает только при первом открытии попапов,
-//а при повторном значения полей не проверяюся, точнее проверяются в момент ввода, но пока в input изменения не внесены валидация не работает, то есть
-//если стереть все поля в попапе Ученый и закрыть не сохраняя, при повторном открытии поля автоматом заполнятся, а кнопка сохранить не активна.
-enableValidation(selectors = {
+//вызываем основную функцию с объектом, остальные получают его по цепочке, так как вызываются в этой функции и последующих
+enableValidation({
   formSelector: '.form',
   inputSelector: '.form__item',
   setSelector: '.form__set',

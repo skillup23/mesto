@@ -57,8 +57,9 @@ const initialCards = [
 
 
 //Функция открытия попапа
-function openPopup(elem) {
+function openPopup(elem, elemen) {
   elem.classList.add('popup_active');
+  elemen.classList.add('popup__submit_inactive');
   elem.addEventListener('click', closeOverlay);
   document.addEventListener('keydown', closeOverlayEsc);
 }
@@ -144,7 +145,6 @@ function handleFormSubmitAddcard (evt) {
     name: popupAddcardName.value,
     link: popupAddcardLink.value
   };
-
   createCard(object);
   closePopup(popupAddcard);
 }
@@ -167,13 +167,15 @@ renderCards()
 popupopen.addEventListener('click', function() {
   popupName.value = profileName.textContent;
   popupProfession.value = profileProfession.textContent;
-  openPopup(profilePopup);
+  const buttonSaveProfile = profilePopup.querySelector('.popup__submit');
+  openPopup(profilePopup, buttonSaveProfile);
 });
 
 //Открытие попапа Карточка на кнопку 'добавить карточку'
 popupopenAddcard.addEventListener('click', function() {
   formElementAddcard.reset();
-  openPopup(popupAddcard);
+  const buttonSaveAdd = formElementAddcard.querySelector('.popup__submit');
+  openPopup(popupAddcard, buttonSaveAdd);
 });
 
 //Закрытие попапа Ученый на крестик
