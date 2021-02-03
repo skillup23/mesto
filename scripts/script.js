@@ -7,6 +7,7 @@ const popupProfession = profilePopup.querySelector('.form__item_profile_professi
 const profileName = document.querySelector('.profile__name');
 const profileProfession = document.querySelector('.profile__profession');
 const formElement = profilePopup.querySelector('.form_type_edit');
+const buttonSaveProfile = profilePopup.querySelector('.popup__submit');
 //Переменные карточек массива
 const elementTemplate = document.querySelector('.element_template').content;
 const elements = document.querySelector('.elements');
@@ -17,11 +18,13 @@ const popupcloseAddcard = popupAddcard.querySelector('.popup__close_addcard');
 const popupAddcardName = popupAddcard.querySelector('.form__item_namemesto');
 const popupAddcardLink = popupAddcard.querySelector('.form__item_linkfoto');
 const formElementAddcard = document.forms.addcard;
+const buttonSaveAdd = formElementAddcard.querySelector('.popup__submit');
 //Переменные открытия фото
 const popupPhoto = document.querySelector('.popup_type_image');
 const popupclosePhoto = popupPhoto.querySelector('.popup__close_mesto');
 const photo = popupPhoto.querySelector('.popup__photo');
 const textPhoto = popupPhoto.querySelector('.popup__textphoto');
+
 
 
 //Массив
@@ -131,7 +134,7 @@ function setListeners(element, elem)  {
   });
   //Открытие попапа Фото
   element.querySelector('.element__foto').addEventListener('click', function(evt) {
-    openPopup(popupPhoto);
+    openPopup(popupPhoto, buttonSaveProfile);
     photo.src = elem.link;
     photo.alt = elem.name;
     textPhoto.textContent = elem.name;
@@ -167,14 +170,12 @@ renderCards()
 popupopen.addEventListener('click', function() {
   popupName.value = profileName.textContent;
   popupProfession.value = profileProfession.textContent;
-  const buttonSaveProfile = profilePopup.querySelector('.popup__submit');
   openPopup(profilePopup, buttonSaveProfile);
 });
 
 //Открытие попапа Карточка на кнопку 'добавить карточку'
 popupopenAddcard.addEventListener('click', function() {
   formElementAddcard.reset();
-  const buttonSaveAdd = formElementAddcard.querySelector('.popup__submit');
   openPopup(popupAddcard, buttonSaveAdd);
 });
 
