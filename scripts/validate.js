@@ -1,13 +1,3 @@
-const selectors = {
-  formSelector: '.form',
-  inputSelector: '.form__item',
-  setSelector: '.form__set',
-  submitButtonSelector: '.form__submit',
-  inactiveButtonClass: 'popup__submit_inactive',
-  inputErrorClass: 'form__item_type_error',
-  errorClass: 'form__input-error_active'
-}; 
-
 //функция появления ошибки при не валидации
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
@@ -61,7 +51,18 @@ function enableValidation() {
   });
 }
 
-enableValidation();
+//я понимаю что спрашивать нельзя, но в слак мне так и не ответили - как быть с тем что валидация срабатывает только при первом открытии попапов,
+//а при повторном значения полей не проверяюся, точнее проверяются в момент ввода, но пока в input изменения не внесены валидация не работает, то есть
+//если стереть все поля в попапе Ученый и закрыть не сохраняя, при повторном открытии поля автоматом заполнятся, а кнопка сохранить не активна.
+enableValidation(selectors = {
+  formSelector: '.form',
+  inputSelector: '.form__item',
+  setSelector: '.form__set',
+  submitButtonSelector: '.form__submit',
+  inactiveButtonClass: 'popup__submit_inactive',
+  inputErrorClass: 'form__item_type_error',
+  errorClass: 'form__input-error_active'
+});
 
 //проверка на валидность каждого поля input
 function hasInvalidInput(inputList) {

@@ -1,12 +1,12 @@
 //Переменные редактирования раздела Ученый
 const popupopen = document.querySelector('.profile__edit-button');
-const popup = document.querySelector('.popup_type_edit');
-const popupclose = popup.querySelector('.popup__close_edit');
-const popupName = popup.querySelector('.form__item_profile_name');
-const popupProfession = popup.querySelector('.form__item_profile_profession');
+const profilePopup = document.querySelector('.popup_type_edit');
+const popupclose = profilePopup.querySelector('.popup__close_edit');
+const popupName = profilePopup.querySelector('.form__item_profile_name');
+const popupProfession = profilePopup.querySelector('.form__item_profile_profession');
 const profileName = document.querySelector('.profile__name');
 const profileProfession = document.querySelector('.profile__profession');
-const formElement = popup.querySelector('.form_type_edit');
+const formElement = profilePopup.querySelector('.form_type_edit');
 //Переменные карточек массива
 const elementTemplate = document.querySelector('.element_template').content;
 const elements = document.querySelector('.elements');
@@ -14,6 +14,8 @@ const elements = document.querySelector('.elements');
 const popupopenAddcard = document.querySelector('.profile__add-button');
 const popupAddcard = document.querySelector('.popup_type_new-card');
 const popupcloseAddcard = popupAddcard.querySelector('.popup__close_addcard');
+const popupAddcardName = popupAddcard.querySelector('.form__item_namemesto');
+const popupAddcardLink = popupAddcard.querySelector('.form__item_linkfoto');
 const formElementAddcard = document.forms.addcard;
 //Переменные открытия фото
 const popupPhoto = document.querySelector('.popup_type_image');
@@ -92,11 +94,11 @@ function handleFormSubmit (evt) {
   evt.preventDefault(); 
   profileName.textContent = popupName.value;
   profileProfession.textContent = popupProfession.value;
-  closePopup(popup);
+  closePopup(profilePopup);
 }
 
 //Функция перебора массива
-function pereborMassiva() {
+function renderCards() {
   initialCards.forEach(createCard);
 }
 
@@ -109,7 +111,7 @@ function createCard(elem) {
   fotoElem.src = elem.link;
   fotoElem.alt = elem.name;
 
-  setListeners(htmlElement);
+  setListeners(htmlElement, elem);//передаем и шаблон и каждый элемент массива (объект из массива)
   addcard(elements, htmlElement);
 }
 
@@ -119,7 +121,7 @@ function addcard(container, cardElement) {
 }
 
 //Функция слушателей удаления, лайка и попапа Фото
-function setListeners(element) {
+function setListeners(element, elem)  {
   //слушатель удалить карточку
   element.querySelector('.element__delete').addEventListener('click', cardDelete);
   //слушатель лайка
@@ -129,11 +131,9 @@ function setListeners(element) {
   //Открытие попапа Фото
   element.querySelector('.element__foto').addEventListener('click', function(evt) {
     openPopup(popupPhoto);
-    const elementName = evt.target.closest('.element').querySelector('.element__name-mesto');
-    const elementPhoto = evt.target.closest('.element__foto');
-    photo.src = elementPhoto.src;
-    photo.alt = elementName.textContent;
-    textPhoto.textContent = elementName.textContent;
+    photo.src = elem.link;
+    photo.alt = elem.name;
+    textPhoto.textContent = elem.name;
   });
 }
 
@@ -141,8 +141,8 @@ function setListeners(element) {
 function handleFormSubmitAddcard (evt) {
   evt.preventDefault();
   const object = {     // Привожу к объекту значения из формы
-    name: popupAddcard.querySelector('.form__item_namemesto').value,
-    link: popupAddcard.querySelector('.form__item_linkfoto').value
+    name: popupAddcardName.value,
+    link: popupAddcardLink.value
   };
 
   createCard(object);
@@ -157,7 +157,7 @@ function cardDelete(evt) {
 
 
 //Вызов функции перебора массива
-pereborMassiva()
+renderCards()
 
 
 
@@ -167,7 +167,7 @@ pereborMassiva()
 popupopen.addEventListener('click', function() {
   popupName.value = profileName.textContent;
   popupProfession.value = profileProfession.textContent;
-  openPopup(popup);
+  openPopup(profilePopup);
 });
 
 //Открытие попапа Карточка на кнопку 'добавить карточку'
@@ -178,7 +178,7 @@ popupopenAddcard.addEventListener('click', function() {
 
 //Закрытие попапа Ученый на крестик
 popupclose.addEventListener('click', function() {
-  closePopup(popup);
+  closePopup(profilePopup);
 });
 
 //Закрытие попапа 'добавить карточку' на крестик
