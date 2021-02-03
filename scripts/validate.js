@@ -1,15 +1,5 @@
-const selectors = {
-  formSelector: '.form',
-  inputSelector: '.form__item',
-  setSelector: '.form__set',
-  submitButtonSelector: '.form__submit',
-  inactiveButtonClass: 'popup__submit_inactive',
-  inputErrorClass: 'form__item_type_error',
-  errorClass: 'form__input-error_active'
-};
-
 //функция появления ошибки при не валидации
-const showInputError = (formElement, inputElement, errorMessage) => {
+const showInputError = (formElement, inputElement, errorMessage, selectors) => { 
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.add(selectors.inputErrorClass);
   errorElement.textContent = errorMessage;
@@ -17,7 +7,7 @@ const showInputError = (formElement, inputElement, errorMessage) => {
 };
 
 //функция скрытия ошибки при валидации
-const hideInputError = (formElement, inputElement) => {
+const hideInputError = (formElement, inputElement, selectors) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.remove(selectors.inputErrorClass);
   errorElement.classList.remove(selectors.errorClass);
@@ -25,25 +15,25 @@ const hideInputError = (formElement, inputElement) => {
 };
 
 //функция на валидность
-const checkInputValidity = (formElement, inputElement) => {
+const checkInputValidity = (formElement, inputElement, selectors) => {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+    showInputError(formElement, inputElement, inputElement.validationMessage, selectors);
   } else {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, selectors);
   }
 };
 
 
 //раскладываем поля input в форму на отдельные
-const setEventListeners = (formElement) => {
+const setEventListeners = (formElement, selectors) => {
   const inputList = Array.from(formElement.querySelectorAll(selectors.inputSelector));
   const buttonElement = formElement.querySelector(selectors.submitButtonSelector);
-  toggleButtonState(inputList, buttonElement);
+  toggleButtonState(inputList, buttonElement, selectors);
   //вешаем на каждый input слушатель с проверкой на валидность и состояние кнопки сохранить
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
+      checkInputValidity(formElement, inputElement, selectors);
+      toggleButtonState(inputList, buttonElement, selectors);
     });
   });
 };
@@ -57,7 +47,7 @@ function enableValidation(selectors) {
     });
     const fieldsetList = Array.from(formElement.querySelectorAll(selectors.setSelector));
     fieldsetList.forEach((fieldset) => {
-      setEventListeners(fieldset)
+      setEventListeners(fieldset, selectors)
     });
   });
 }
@@ -72,6 +62,7 @@ enableValidation({
   inputErrorClass: 'form__item_type_error',
   errorClass: 'form__input-error_active'
 });
+// enableValidation(selectors);
 
 //проверка на валидность каждого поля input
 function hasInvalidInput(inputList) {
@@ -81,7 +72,7 @@ function hasInvalidInput(inputList) {
 }
 
 // Функция принимает массив полей ввода и элемент кнопки, состояние которой нужно менять
-function toggleButtonState(inputList, buttonElement) {
+function toggleButtonState(inputList, buttonElement, selectors) {
   if(hasInvalidInput(inputList)) {                          // Если есть хотя бы один невалидный инпут
     buttonElement.classList.add(selectors.inactiveButtonClass);
   } else {

@@ -7,7 +7,7 @@ const popupProfession = profilePopup.querySelector('.form__item_profile_professi
 const profileName = document.querySelector('.profile__name');
 const profileProfession = document.querySelector('.profile__profession');
 const formElement = profilePopup.querySelector('.form_type_edit');
-const buttonSaveProfile = profilePopup.querySelector('.popup__submit');
+const buttonSaveProfile = profilePopup.querySelector('.popup__submit');//костыль
 //Переменные карточек массива
 const elementTemplate = document.querySelector('.element_template').content;
 const elements = document.querySelector('.elements');
@@ -18,7 +18,7 @@ const popupcloseAddcard = popupAddcard.querySelector('.popup__close_addcard');
 const popupAddcardName = popupAddcard.querySelector('.form__item_namemesto');
 const popupAddcardLink = popupAddcard.querySelector('.form__item_linkfoto');
 const formElementAddcard = document.forms.addcard;
-const buttonSaveAdd = formElementAddcard.querySelector('.popup__submit');
+const buttonSaveAdd = formElementAddcard.querySelector('.popup__submit');//костыль
 //Переменные открытия фото
 const popupPhoto = document.querySelector('.popup_type_image');
 const popupclosePhoto = popupPhoto.querySelector('.popup__close_mesto');
@@ -62,7 +62,7 @@ const initialCards = [
 //Функция открытия попапа
 function openPopup(elem, elemen) {
   elem.classList.add('popup_active');
-  elemen.classList.add('popup__submit_inactive');
+  elemen.classList.add('popup__submit_inactive');//костыль
   elem.addEventListener('click', closeOverlay);
   document.addEventListener('keydown', closeOverlayEsc);
 }
@@ -134,7 +134,7 @@ function setListeners(element, elem)  {
   });
   //Открытие попапа Фото
   element.querySelector('.element__foto').addEventListener('click', function(evt) {
-    openPopup(popupPhoto, buttonSaveProfile);
+    openPopup(popupPhoto, buttonSaveProfile);//костыль
     photo.src = elem.link;
     photo.alt = elem.name;
     textPhoto.textContent = elem.name;
@@ -170,13 +170,13 @@ renderCards()
 popupopen.addEventListener('click', function() {
   popupName.value = profileName.textContent;
   popupProfession.value = profileProfession.textContent;
-  openPopup(profilePopup, buttonSaveProfile);
+  openPopup(profilePopup, buttonSaveProfile);//костыль
 });
 
 //Открытие попапа Карточка на кнопку 'добавить карточку'
 popupopenAddcard.addEventListener('click', function() {
   formElementAddcard.reset();
-  openPopup(popupAddcard, buttonSaveAdd);
+  openPopup(popupAddcard, buttonSaveAdd);//костыль
 });
 
 //Закрытие попапа Ученый на крестик
