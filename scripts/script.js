@@ -90,9 +90,6 @@ function closeOverlayEsc(evt) {
   }
 }
 
-
-
-
 //Функция внесения изменений при нажатии на сохранить и закрытие попапа Ученый
 function handleFormSubmit (evt) {
   evt.preventDefault(); 
@@ -141,6 +138,10 @@ function setListeners(element, elem)  {
   });
 }
 
+
+
+
+
 //Функция добавления новой карточки при нажатии на сохранить и закрытие попапа
 function handleFormSubmitAddcard (evt) {
   evt.preventDefault();
@@ -161,6 +162,14 @@ function cardDelete(evt) {
 
 //Вызов функции перебора массива
 renderCards()
+
+
+
+
+
+
+
+
 
 
 
