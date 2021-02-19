@@ -97,7 +97,61 @@ function handleFormSubmit (evt) {
   profileProfession.textContent = popupProfession.value;
   closePopup(profilePopup);
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const initialCardsNew = [
+  {
+      name: 'Париж',
+      link: 'https://images.unsplash.com/photo-1549144511-f099e773c147'
+  },
+  {
+      name: 'Марсель',
+      link: 'https://files.enjourney.ru/upload/404b0a6a92d8c8d91a3b32ad6e24e02c/1920x0/c1951d140676fb5015799251dbf3b2fa.jpg'
+  },
+]; 
 
+class Card {
+  constructor(data, cardSelector) {
+    this._name = data.name;
+    this._link = data.link;
+    this._cardSelector = cardSelector;
+  }
+
+  _getTemplate() {
+  // забираем размеку из HTML и клонируем элемент
+    const cardElementNew = document
+      .querySelector(this._cardSelector)
+      .content
+      .querySelector('.element')
+      .cloneNode(true)
+
+  // вернём DOM-элемент карточки
+    return cardElementNew;
+  }
+
+
+  generateCard() {
+  // Запишем разметку в приватное поле _element. 
+  // Так у других элементов появится доступ к ней.
+    this._element = this._getTemplate();
+  // Добавим данные
+    this._element.querySelector('.element__foto').src = this._link;
+    this._element.querySelector('.element__name-mesto').textContent = this._name;
+  // Вернём элемент наружу
+    return this._element;
+  }
+}
+
+initialCardsNew.forEach((item) => {
+  // Создадим экземпляр карточки
+  const card = new Card(item, '.element_template_type_default');
+  // Создаём карточку и возвращаем наружу
+  const cardElementNew = card.generateCard();
+
+  // Добавляем в DOM
+  elements.append(cardElementNew);
+}); 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Функция перебора массива
 function renderCards() {
   initialCards.forEach(createCard);
