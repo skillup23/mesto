@@ -107,6 +107,30 @@ const initialCardsNew = [
       name: 'Марсель',
       link: 'https://files.enjourney.ru/upload/404b0a6a92d8c8d91a3b32ad6e24e02c/1920x0/c1951d140676fb5015799251dbf3b2fa.jpg'
   },
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
 ]; 
 
 class Card {
@@ -124,7 +148,6 @@ class Card {
       .querySelector('.element')
       .cloneNode(true)
 
-  // вернём DOM-элемент карточки
     return cardElementNew;
   }
 
@@ -133,14 +156,49 @@ class Card {
   // Запишем разметку в приватное поле _element. 
   // Так у других элементов появится доступ к ней.
     this._element = this._getTemplate();
-  // Добавим данные
+    this._setEventListeners(); // добавим обработчики
+
     this._element.querySelector('.element__foto').src = this._link;
     this._element.querySelector('.element__name-mesto').textContent = this._name;
-  // Вернём элемент наружу
+
     return this._element;
+  }
+
+  _setEventListeners() {
+    this._element.querySelector('.element__foto').addEventListener('click', () => {
+      this._handleOpenPopup();
+    });
+    popupclosePhoto.addEventListener('click', () => {
+      this._handleClosePopup();
+    });
+    this._element.querySelector('.element__like').addEventListener('click', (evt) => {
+      evt.target.classList.toggle('element__like_active');
+    });
+    this._element.querySelector('.element__delete').addEventListener('click', (evt) => {
+      evt.target.closest('.element').remove();
+    });
+  }
+  
+  _handleOpenPopup() {
+    photo.src = this._link;
+    photo.alt = this._name;
+    textPhoto.textContent = this._name;
+
+    popupPhoto.classList.add('popup_active');
+    popupPhoto.addEventListener('click', closeOverlay);
+    document.addEventListener('keydown', closeOverlayEsc);
+  }
+  
+  _handleClosePopup() {
+    photo.src = '';
+    photo.alt = '';
+    textPhoto.textContent = '';
+
+    closePopup(popupPhoto);
   }
 }
 
+// Создаем карточки из массива объектов
 initialCardsNew.forEach((item) => {
   // Создадим экземпляр карточки
   const card = new Card(item, '.element_template_type_default');
@@ -152,70 +210,76 @@ initialCardsNew.forEach((item) => {
 }); 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Функция перебора массива
-function renderCards() {
-  initialCards.forEach(createCard);
-}
+// //Функция перебора массива
+// function renderCards() {
+//   initialCards.forEach(createCard);
+// }
 
-// //Функция создания карточек
-function createCard(elem) {
-  const htmlElement = elementTemplate.cloneNode(true);
-  const nameMestoElem = htmlElement.querySelector('.element__name-mesto');
-  const fotoElem = htmlElement.querySelector('.element__foto');
-  nameMestoElem.textContent = elem.name;
-  fotoElem.src = elem.link;
-  fotoElem.alt = elem.name;
+// // //Функция создания карточек
+// function createCard(elem) {
+//   const htmlElement = elementTemplate.cloneNode(true);
+//   const nameMestoElem = htmlElement.querySelector('.element__name-mesto');
+//   const fotoElem = htmlElement.querySelector('.element__foto');
+//   nameMestoElem.textContent = elem.name;
+//   fotoElem.src = elem.link;
+//   fotoElem.alt = elem.name;
 
-  setListeners(htmlElement, elem);//передаем и шаблон и каждый элемент массива (объект из массива)
-  addcard(elements, htmlElement);
-}
+//   setListeners(htmlElement, elem);//передаем и шаблон и каждый элемент массива (объект из массива)
+//   addcard(elements, htmlElement);
+// }
 
-//Функция добавления карточек
-function addcard(container, cardElement) {
-  container.prepend(cardElement);
-}
+// //Функция добавления карточек
+// function addcard(container, cardElement) {
+//   container.prepend(cardElement);
+// }
 
-//Функция слушателей удаления, лайка и попапа Фото
-function setListeners(element, elem)  {
-  //слушатель удалить карточку
-  element.querySelector('.element__delete').addEventListener('click', cardDelete);
-  //слушатель лайка
-  element.querySelector('.element__like').addEventListener('click', function(evt) {
-    evt.target.classList.toggle('element__like_active');
-  });
-  //Открытие попапа Фото
-  element.querySelector('.element__foto').addEventListener('click', function(evt) {
-    openPopup(popupPhoto, buttonSaveProfile);//костыль
-    photo.src = elem.link;
-    photo.alt = elem.name;
-    textPhoto.textContent = elem.name;
-  });
-}
-
-
+// //Функция слушателей удаления, лайка и попапа Фото
+// function setListeners(element, elem)  {
+//   //слушатель удалить карточку
+//   element.querySelector('.element__delete').addEventListener('click', cardDelete);
+//   //слушатель лайка
+//   element.querySelector('.element__like').addEventListener('click', function(evt) {
+//     evt.target.classList.toggle('element__like_active');
+//   });
+//   //Открытие попапа Фото
+//   element.querySelector('.element__foto').addEventListener('click', function(evt) {
+//     openPopup(popupPhoto, buttonSaveProfile);//костыль
+//     photo.src = elem.link;
+//     photo.alt = elem.name;
+//     textPhoto.textContent = elem.name;
+//   });
+// }
 
 
 
-//Функция добавления новой карточки при нажатии на сохранить и закрытие попапа
+
+
+// Создаем карточку через форму
 function handleFormSubmitAddcard (evt) {
   evt.preventDefault();
   const object = {     // Привожу к объекту значения из формы
     name: popupAddcardName.value,
     link: popupAddcardLink.value
   };
-  createCard(object);
+    // Создадим экземпляр карточки
+  const card = new Card(object, '.element_template_type_default');
+    // Создаём карточку и возвращаем наружу
+  const cardElementNew = card.generateCard();
+  
+    // Добавляем в DOM
+  elements.prepend(cardElementNew);
   closePopup(popupAddcard);
 }
 
-//Функция удаления карточки при нажатии на корзинку
-function cardDelete(evt) {
-  evt.target.closest('.element').remove();
-}
+// //Функция удаления карточки при нажатии на корзинку
+// function cardDelete(evt) {
+//   evt.target.closest('.element').remove();
+// }
 
 
 
-//Вызов функции перебора массива
-renderCards()
+// //Вызов функции перебора массива
+// renderCards()
 
 
 
@@ -229,7 +293,7 @@ renderCards()
 
 //Слушатели событий...................................................
 
-//Открытие попапа Ученый на кнопку редактироватьd
+//Открытие попапа Ученый на кнопку редактировать
 popupopen.addEventListener('click', function() {
   popupName.value = profileName.textContent;
   popupProfession.value = profileProfession.textContent;
@@ -252,10 +316,10 @@ popupcloseAddcard.addEventListener('click', function() {
   closePopup(popupAddcard);
 });
 
-//Закрытие попапа Фото на крестик
-popupclosePhoto.addEventListener('click', function() {
-  closePopup(popupPhoto);
-});
+// //Закрытие попапа Фото на крестик
+// popupclosePhoto.addEventListener('click', function() {
+//   closePopup(popupPhoto);
+// });
 
 
 //Сохранение изменений и закрытие попапа Ученый при нажатии на сохранить
