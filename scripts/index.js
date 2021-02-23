@@ -1,3 +1,7 @@
+import FormValidator from './validate.js'
+import Card from './Card.js'
+
+
 //Переменные редактирования раздела Ученый
 const popupopen = document.querySelector('.profile__edit-button');
 const profilePopup = document.querySelector('.popup_type_edit');
@@ -7,9 +11,9 @@ const popupProfession = profilePopup.querySelector('.form__item_profile_professi
 const profileName = document.querySelector('.profile__name');
 const profileProfession = document.querySelector('.profile__profession');
 const formElement = profilePopup.querySelector('.form_type_edit');
-const buttonSaveProfile = profilePopup.querySelector('.popup__submit');//костыль
+// const buttonSaveProfile = profilePopup.querySelector('.popup__submit');//костыль
 //Переменные карточек массива
-const elementTemplate = document.querySelector('.element_template').content;
+// const elementTemplate = document.querySelector('.element_template').content;
 const elements = document.querySelector('.elements');
 //Переменные кнопки 'добавить карточку'
 const popupopenAddcard = document.querySelector('.profile__add-button');
@@ -18,51 +22,32 @@ const popupcloseAddcard = popupAddcard.querySelector('.popup__close_addcard');
 const popupAddcardName = popupAddcard.querySelector('.form__item_namemesto');
 const popupAddcardLink = popupAddcard.querySelector('.form__item_linkfoto');
 const formElementAddcard = document.forms.addcard;
-const buttonSaveAdd = formElementAddcard.querySelector('.popup__submit');//костыль
+// const buttonSaveAdd = formElementAddcard.querySelector('.popup__submit');//костыль
 //Переменные открытия фото
-const popupPhoto = document.querySelector('.popup_type_image');
-const popupclosePhoto = popupPhoto.querySelector('.popup__close_mesto');
-const photo = popupPhoto.querySelector('.popup__photo');
-const textPhoto = popupPhoto.querySelector('.popup__textphoto');
+// const popupPhoto = document.querySelector('.popup_type_image');
+// const popupclosePhoto = popupPhoto.querySelector('.popup__close_mesto');
+// const photo = popupPhoto.querySelector('.popup__photo');
+// const textPhoto = popupPhoto.querySelector('.popup__textphoto');
 
-
-
-//Массив
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-]; 
+// конфиг для валидации
+const config = {
+  formSelector: '.form',
+  inputSelector: '.form__item',
+  // setSelector: '.form__set',
+  submitButtonSelector: '.form__submit',
+  inactiveButtonClass: 'popup__submit_inactive',
+  inputErrorClass: 'form__item_type_error',
+  errorClass: 'form__input-error_active'
+}
 
 
 //Функции....................................................................
 
 
 //Функция открытия попапа
-function openPopup(elem, elemen) {
+function openPopup(elem) {
   elem.classList.add('popup_active');
-  elemen.classList.add('popup__submit_inactive');//костыль
+  // elemen.classList.add('popup__submit_inactive');//костыль
   elem.addEventListener('click', closeOverlay);
   document.addEventListener('keydown', closeOverlayEsc);
 }
@@ -97,15 +82,21 @@ function handleFormSubmit (evt) {
   profileProfession.textContent = popupProfession.value;
   closePopup(profilePopup);
 }
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Код про создание карточек
+
+// массив с карточками
 const initialCardsNew = [
   {
-      name: 'Париж',
-      link: 'https://images.unsplash.com/photo-1549144511-f099e773c147'
+    name: 'Мон-Сен-Мишель',
+    link: 'https://images.unsplash.com/photo-1562614174-c82de799351a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'
   },
   {
-      name: 'Марсель',
-      link: 'https://files.enjourney.ru/upload/404b0a6a92d8c8d91a3b32ad6e24e02c/1920x0/c1951d140676fb5015799251dbf3b2fa.jpg'
+    name: 'Лапландия',
+    link: 'https://images.unsplash.com/photo-1607020259898-bc4a1182ae75?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=647&q=80'
   },
   {
     name: 'Архыз',
@@ -133,70 +124,7 @@ const initialCardsNew = [
   }
 ]; 
 
-class Card {
-  constructor(data, cardSelector) {
-    this._name = data.name;
-    this._link = data.link;
-    this._cardSelector = cardSelector;
-  }
 
-  _getTemplate() {
-  // забираем размеку из HTML и клонируем элемент
-    const cardElementNew = document
-      .querySelector(this._cardSelector)
-      .content
-      .querySelector('.element')
-      .cloneNode(true)
-
-    return cardElementNew;
-  }
-
-
-  generateCard() {
-  // Запишем разметку в приватное поле _element. 
-  // Так у других элементов появится доступ к ней.
-    this._element = this._getTemplate();
-    this._setEventListeners(); // добавим обработчики
-
-    this._element.querySelector('.element__foto').src = this._link;
-    this._element.querySelector('.element__name-mesto').textContent = this._name;
-
-    return this._element;
-  }
-
-  _setEventListeners() {
-    this._element.querySelector('.element__foto').addEventListener('click', () => {
-      this._handleOpenPopup();
-    });
-    popupclosePhoto.addEventListener('click', () => {
-      this._handleClosePopup();
-    });
-    this._element.querySelector('.element__like').addEventListener('click', (evt) => {
-      evt.target.classList.toggle('element__like_active');
-    });
-    this._element.querySelector('.element__delete').addEventListener('click', (evt) => {
-      evt.target.closest('.element').remove();
-    });
-  }
-  
-  _handleOpenPopup() {
-    photo.src = this._link;
-    photo.alt = this._name;
-    textPhoto.textContent = this._name;
-
-    popupPhoto.classList.add('popup_active');
-    popupPhoto.addEventListener('click', closeOverlay);
-    document.addEventListener('keydown', closeOverlayEsc);
-  }
-  
-  _handleClosePopup() {
-    photo.src = '';
-    photo.alt = '';
-    textPhoto.textContent = '';
-
-    closePopup(popupPhoto);
-  }
-}
 
 // Создаем карточки из массива объектов
 initialCardsNew.forEach((item) => {
@@ -208,50 +136,6 @@ initialCardsNew.forEach((item) => {
   // Добавляем в DOM
   elements.append(cardElementNew);
 }); 
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// //Функция перебора массива
-// function renderCards() {
-//   initialCards.forEach(createCard);
-// }
-
-// // //Функция создания карточек
-// function createCard(elem) {
-//   const htmlElement = elementTemplate.cloneNode(true);
-//   const nameMestoElem = htmlElement.querySelector('.element__name-mesto');
-//   const fotoElem = htmlElement.querySelector('.element__foto');
-//   nameMestoElem.textContent = elem.name;
-//   fotoElem.src = elem.link;
-//   fotoElem.alt = elem.name;
-
-//   setListeners(htmlElement, elem);//передаем и шаблон и каждый элемент массива (объект из массива)
-//   addcard(elements, htmlElement);
-// }
-
-// //Функция добавления карточек
-// function addcard(container, cardElement) {
-//   container.prepend(cardElement);
-// }
-
-// //Функция слушателей удаления, лайка и попапа Фото
-// function setListeners(element, elem)  {
-//   //слушатель удалить карточку
-//   element.querySelector('.element__delete').addEventListener('click', cardDelete);
-//   //слушатель лайка
-//   element.querySelector('.element__like').addEventListener('click', function(evt) {
-//     evt.target.classList.toggle('element__like_active');
-//   });
-//   //Открытие попапа Фото
-//   element.querySelector('.element__foto').addEventListener('click', function(evt) {
-//     openPopup(popupPhoto, buttonSaveProfile);//костыль
-//     photo.src = elem.link;
-//     photo.alt = elem.name;
-//     textPhoto.textContent = elem.name;
-//   });
-// }
-
-
-
 
 
 // Создаем карточку через форму
@@ -271,39 +155,25 @@ function handleFormSubmitAddcard (evt) {
   closePopup(popupAddcard);
 }
 
-// //Функция удаления карточки при нажатии на корзинку
-// function cardDelete(evt) {
-//   evt.target.closest('.element').remove();
-// }
 
-
-
-// //Вызов функции перебора массива
-// renderCards()
-
-
-
-
-
-
-
-
-
-
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Слушатели событий...................................................
 
 //Открытие попапа Ученый на кнопку редактировать
 popupopen.addEventListener('click', function() {
   popupName.value = profileName.textContent;
   popupProfession.value = profileProfession.textContent;
-  openPopup(profilePopup, buttonSaveProfile);//костыль
+  openPopup(profilePopup);//костыль
+  validFormAddCard.clearValidation();
+  validFormAddCard.buttonStateInactive();
 });
 
 //Открытие попапа Карточка на кнопку 'добавить карточку'
 popupopenAddcard.addEventListener('click', function() {
   formElementAddcard.reset();
-  openPopup(popupAddcard, buttonSaveAdd);//костыль
+  openPopup(popupAddcard);//костыль
+  validFormAddCard.clearValidation();
+  validFormAddCard.buttonStateInactive();
 });
 
 //Закрытие попапа Ученый на крестик
@@ -327,3 +197,11 @@ formElement.addEventListener('submit', handleFormSubmit);
 
 //Сохранение изменений и закрытие попапа при нажатии на сохранить
 formElementAddcard.addEventListener('submit', handleFormSubmitAddcard);
+
+//валидация про изменение профиля
+const validFormProfile = new FormValidator(config, formElement);
+validFormProfile.enableValidation();
+
+//валидация по созданию карточек
+const validFormAddCard = new FormValidator(config, formElementAddcard);
+validFormAddCard.enableValidation();

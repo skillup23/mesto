@@ -1,16 +1,4 @@
-const config = {
-  formSelector: '.form',
-  inputSelector: '.form__item',
-  setSelector: '.form__set',
-  submitButtonSelector: '.form__submit',
-  inactiveButtonClass: 'popup__submit_inactive',
-  inputErrorClass: 'form__item_type_error',
-  errorClass: 'form__input-error_active'
-}
-
-// const formElement2 = document.forms.redaktor;
-
-class FormValidator {
+export default class FormValidator {
   constructor(config, formElement) {
     this._config = config;
     this._formElement = formElement;
@@ -43,10 +31,11 @@ class FormValidator {
 
   //раскладываем поля формы и вещаем обработчики
   _setEventListeners() {
+    //создаем из всех импутов массив
     this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
     this._buttonElement = this._formElement.querySelector(this._config.submitButtonSelector);
     this._toggleButtonState();
-    //вешаем на каждый input слушатель с проверкой на валидность и состояние кнопки сохранить
+    //вешаем на каждый input из массива слушатель с проверкой на валидность и состояние кнопки сохранить
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
@@ -81,22 +70,30 @@ class FormValidator {
     }
   }
 
+  //очистка форм от сохрненных ошибок валидации при открытии попапа
   clearValidation() {
-    this._hideInputErrors();
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
+    this._inputList.forEach(inputElement => {
+			this._hideInputError(inputElement);
+		})
+  }
+
+  //проверка при открытии попапа для кнопки сохранить 
+  buttonStateInactive() {
+    // this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
+    // this._buttonElement = this._formElement.querySelector(this._config.submitButtonSelector);
+    this._inputList.forEach( () => {
+			this._toggleButtonState();
+      // this._buttonElement.classList.add(this._config.inactiveButtonClass);
+		})
   }
 
 }
 
 
-// export default FormValidator;
 
 
 
-const validFormProfile = new FormValidator(config, formElement);
-validFormProfile.enableValidation();
-
-const validFormAddCard = new FormValidator(config, formElementAddcard);
-validFormAddCard.enableValidation();
 
 
 
