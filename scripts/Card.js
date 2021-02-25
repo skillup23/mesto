@@ -36,47 +36,10 @@ export default class Card {
       this._handleCardClick(this._name, this._link)
     });
 
-    // popupclosePhoto.addEventListener('click', () => {
-    //   this._handleClosePopup();
-    // });
-
     this._element.querySelector('.element__like').addEventListener('click', this._isLike);
 
     this._element.querySelector('.element__delete').addEventListener('click', this._deleteCard);
   }
-  
-  // _handleOpenPopup() {
-  //   photo.src = this._link;
-  //   photo.alt = this._name;
-  //   textPhoto.textContent = this._name;
-
-  //   popupPhoto.classList.add('popup_active');
-  //   popupPhoto.addEventListener('click', this._closeOverlay);
-  //   document.addEventListener('keydown', this._closeOverlayEsc);
-  // }
-  
-  // _handleClosePopup() {
-  //   photo.src = '';
-  //   photo.alt = '';
-  //   textPhoto.textContent = '';
-
-  //   popupPhoto.classList.remove('popup_active');
-  //   popupclosePhoto.removeEventListener('click', this._handleClosePopup);
-  //   popupPhoto.removeEventListener('click', this._closeOverlay);
-  //   document.removeEventListener('keydown', this._closeOverlayEsc);
-  // }
-
-  // _closeOverlay(event) {
-  //   if (event.target === event.currentTarget){
-  //     popupPhoto.classList.remove('popup_active');
-  //   }
-  // }
-
-  // _closeOverlayEsc(event) {
-  //   if (event.key === 'Escape') {
-  //     popupPhoto.classList.remove('popup_active');
-  //   }
-  // }
 
   _isLike(event) {
     event.target.classList.toggle('element__like_active');

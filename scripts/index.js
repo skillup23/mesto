@@ -5,27 +5,21 @@ const popups = document.querySelectorAll('.popup')//находим все поп
 //Переменные редактирования раздела Ученый
 const popupOpenProfile = document.querySelector('.profile__edit-button');
 const profilePopup = document.querySelector('.popup_type_edit');
-// const popupCloseProfile = profilePopup.querySelector('.popup__close_edit');
 const popupName = profilePopup.querySelector('.form__item_profile_name');
 const popupProfession = profilePopup.querySelector('.form__item_profile_profession');
 const profileName = document.querySelector('.profile__name');
 const profileProfession = document.querySelector('.profile__profession');
 const formElement = profilePopup.querySelector('.form_type_edit');
-// const buttonSaveProfile = profilePopup.querySelector('.popup__submit');//костыль
 //Переменные карточек массива
-// const elementTemplate = document.querySelector('.element_template').content;
 const elements = document.querySelector('.elements');
 //Переменные кнопки 'добавить карточку'
 const popupOpenAddCard = document.querySelector('.profile__add-button');
 const popupAddcard = document.querySelector('.popup_type_new-card');
-// const popupcloseAddcard = popupAddcard.querySelector('.popup__close_addcard');
 const popupAddcardName = popupAddcard.querySelector('.form__item_namemesto');
 const popupAddcardLink = popupAddcard.querySelector('.form__item_linkfoto');
 const formElementAddcard = document.forms.addcard;
-// const buttonSaveAdd = formElementAddcard.querySelector('.popup__submit');//костыль
 //Переменные открытия фото
 const popupPhoto = document.querySelector('.popup_type_image');
-// const popupclosePhoto = popupPhoto.querySelector('.popup__close_mesto');
 const imagePopupPicture = popupPhoto.querySelector('.popup__photo');
 const imagePopupCaption = popupPhoto.querySelector('.popup__textphoto');
 
@@ -33,7 +27,6 @@ const imagePopupCaption = popupPhoto.querySelector('.popup__textphoto');
 const config = {
   formSelector: '.form',
   inputSelector: '.form__item',
-  // setSelector: '.form__set',
   submitButtonSelector: '.form__submit',
   inactiveButtonClass: 'popup__submit_inactive',
   inputErrorClass: 'form__item_type_error',
@@ -47,25 +40,14 @@ const config = {
 //Функция открытия попапа
 function openPopup(elem) {
   elem.classList.add('popup_active');
-  // elemen.classList.add('popup__submit_inactive');//костыль
-  // elem.addEventListener('click', closeOverlay);
   document.addEventListener('keydown', closeOverlayEsc);
 }
 
 //Функция закрытия попапа
 function closePopup(elem) {
   elem.classList.remove('popup_active');
-  // elem.removeEventListener('click', closeOverlay);
   document.removeEventListener('keydown', closeOverlayEsc);
 }
-
-//Функция закрытия попапа кликом по оверлею
-// function closeOverlay(event) {
-//   if (event.target === event.currentTarget){
-//     const popupActive = document.querySelector('.popup_active');
-//     closePopup(popupActive);
-//   }
-// }
 
 //Функция закрытия попапа кликом по оверлею или кликом по крестику
 popups.forEach((popup) => {
@@ -73,8 +55,8 @@ popups.forEach((popup) => {
       if (evt.target.classList.contains('popup_active')) {
           closePopup(popup);
       }
-      if (evt.target.classList.contains('popup__close')) {//спасибо, тогда вопрос Как удалить слушатели?
-        closePopup(popup)                                 //но все равно спасибо за подсказку, так гораздо лучше))
+      if (evt.target.classList.contains('popup__close')) {
+        closePopup(popup)
       }
   });
 }) 
@@ -179,7 +161,6 @@ popupOpenProfile.addEventListener('click', function() {
   popupProfession.value = profileProfession.textContent;
   openPopup(profilePopup);
   validFormProfile.clearValidation();
-  // validFormProfile.buttonStateInactive();
 });
 
 //Открытие попапа Карточка на кнопку 'добавить карточку'
@@ -187,23 +168,7 @@ popupOpenAddCard.addEventListener('click', function() {
   formElementAddcard.reset();
   openPopup(popupAddcard);
   validFormAddCard.clearValidation();
-  // validFormAddCard.buttonStateInactive();
 });
-
-// //Закрытие попапа Ученый на крестик
-// popupCloseProfile.addEventListener('click', function() {
-//   closePopup(profilePopup);
-// });
-
-// //Закрытие попапа 'добавить карточку' на крестик
-// popupcloseAddcard.addEventListener('click', function() {
-//   closePopup(popupAddcard);
-// });
-
-// //Закрытие попапа Фото на крестик
-// popupclosePhoto.addEventListener('click', function() {
-//   closePopup(popupPhoto);
-// });
 
 
 //Сохранение изменений и закрытие попапа Ученый при нажатии на сохранить
