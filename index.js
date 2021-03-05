@@ -1,5 +1,7 @@
-import FormValidator from './FormValidator.js'
-import Card from './Card.js'
+import FormValidator from './scripts/FormValidator.js'
+import Card from './scripts/Card.js'
+// import './pages/index.css'
+// import Section from './scripts/Section.js';
 
 const popups = document.querySelectorAll('.popup')//находим все попапы
 //Переменные редактирования раздела Ученый
@@ -118,6 +120,11 @@ const initialCardsNew = [
   }
 ]; 
 
+// const defaultCardList = new Section(initialCardsNew, '.element_template_type_default');
+
+// defaultCardList.renderItems();
+
+
 //Создаем карточку
 function createCard(object, temlate, handleCardClick) { // передаем данные карточки, шаблон разметки и функцию открытия попапа Фото
   // Создадим экземпляр карточки
@@ -144,7 +151,7 @@ function handleFormSubmitAddcard (evt) {
   closePopup(popupAddcard);
 }
 
-//данные карточки передаем сюда и открываем попап фото
+// данные карточки передаем сюда и открываем попап фото
 function handleCardClick(name, link) {
   imagePopupPicture.src = link;
   imagePopupPicture.alt = name;
