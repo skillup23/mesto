@@ -1,7 +1,7 @@
 import FormValidator from './scripts/FormValidator.js'
-import Card from './scripts/Card.js'
+// import Card from './scripts/Card.js'
 // import './pages/index.css'
-// import Section from './scripts/Section.js';
+import Section from './scripts/Section.js';
 
 const popups = document.querySelectorAll('.popup')//находим все попапы
 //Переменные редактирования раздела Ученый
@@ -120,44 +120,46 @@ const initialCardsNew = [
   }
 ]; 
 
-// const defaultCardList = new Section(initialCardsNew, '.element_template_type_default');
+const defaultCardList = new Section({
+  data: initialCardsNew
+}, '.elements');
 
-// defaultCardList.renderItems();
-
-
-//Создаем карточку
-function createCard(object, temlate, handleCardClick) { // передаем данные карточки, шаблон разметки и функцию открытия попапа Фото
-  // Создадим экземпляр карточки
-  const card = new Card(object, temlate, handleCardClick);
-
-  return card.generateCard();// запускаем публичный метод в классе Card (Card.js) 
-}
-
-// Добавляем в DOM карточки из массива объектов
-initialCardsNew.forEach((item) => {
-  elements.append(createCard(item, '.element_template_type_default', handleCardClick));
-}); 
+defaultCardList.renderItems();
 
 
-// Добавляем в DOM карточку через форму
-function handleFormSubmitAddcard (evt) {
-  evt.preventDefault();
-  const object = {     // Привожу к объекту значения из формы
-    name: popupAddcardName.value,
-    link: popupAddcardLink.value
-  };
+// //Создаем карточку
+// function createCard(object, temlate, handleCardClick) { // передаем данные карточки, шаблон разметки и функцию открытия попапа Фото
+//   // Создадим экземпляр карточки
+//   const card = new Card(object, temlate, handleCardClick);
 
-  elements.prepend(createCard(object, '.element_template_type_default', handleCardClick));
-  closePopup(popupAddcard);
-}
+//   return card.generateCard();// запускаем публичный метод в классе Card (Card.js) 
+// }
 
-// данные карточки передаем сюда и открываем попап фото
-function handleCardClick(name, link) {
-  imagePopupPicture.src = link;
-  imagePopupPicture.alt = name;
-  imagePopupCaption.textContent = name;
-  openPopup(popupPhoto);
-}
+// // Добавляем в DOM карточки из массива объектов
+// initialCardsNew.forEach((item) => {
+//   elements.append(createCard(item, '.element_template_type_default', handleCardClick));
+// }); 
+
+
+// // Добавляем в DOM карточку через форму
+// function handleFormSubmitAddcard (evt) {
+//   evt.preventDefault();
+//   const object = {     // Привожу к объекту значения из формы
+//     name: popupAddcardName.value,
+//     link: popupAddcardLink.value
+//   };
+
+//   elements.prepend(createCard(object, '.element_template_type_default', handleCardClick));
+//   closePopup(popupAddcard);
+// }
+
+// // данные карточки передаем сюда и открываем попап фото
+// function handleCardClick(name, link) {
+//   imagePopupPicture.src = link;
+//   imagePopupPicture.alt = name;
+//   imagePopupCaption.textContent = name;
+//   openPopup(popupPhoto);
+// }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Слушатели событий...................................................
@@ -182,7 +184,7 @@ popupOpenAddCard.addEventListener('click', function() {
 formElement.addEventListener('submit', handleFormSubmit);
 
 //Сохранение изменений и закрытие попапа добавить карточку при нажатии на сохранить
-formElementAddcard.addEventListener('submit', handleFormSubmitAddcard);
+// formElementAddcard.addEventListener('submit', handleFormSubmitAddcard);
 
 //валидация при изменении профиля
 const validFormProfile = new FormValidator(config, formElement);

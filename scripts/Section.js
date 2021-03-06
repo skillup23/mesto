@@ -13,7 +13,6 @@ export default class Section {
       const cardElement = card.generateCard();
 
       this.setItem(cardElement);
-      // elements.append(createCard(item, '.element_template_type_default'));
     }); 
   }
 
