@@ -1,10 +1,10 @@
 import FormValidator from './scripts/FormValidator.js';
 import Card from './scripts/Card.js';
-// import './pages/index.css'
 import Section from './scripts/Section.js';
 import PopupWithImage from './scripts/PopupWithImage.js';
 import PopupWithForm from './scripts/PopupWithForm.js';
 import UserInfo from './scripts/UserInfo.js';
+import './pages/index.css'
 
 
 // const popups = document.querySelectorAll('.popup')//находим все попапы
