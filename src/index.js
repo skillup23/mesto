@@ -1,90 +1,31 @@
-import FormValidator from './scripts/FormValidator.js';
-import Card from './scripts/Card.js';
-import Section from './scripts/Section.js';
-import PopupWithImage from './scripts/PopupWithImage.js';
-import PopupWithForm from './scripts/PopupWithForm.js';
-import UserInfo from './scripts/UserInfo.js';
+import FormValidator from './components/FormValidator.js';
+import Card from './components/Card.js';
+import Section from './components/Section.js';
+import PopupWithImage from './components/PopupWithImage.js';
+import PopupWithForm from './components/PopupWithForm.js';
+import UserInfo from './components/UserInfo.js';
 import './pages/index.css'
 
-
-// const popups = document.querySelectorAll('.popup')//находим все попапы
-//Переменные редактирования раздела Ученый
-const popupOpenProfile = document.querySelector('.profile__edit-button');
-const profilePopup = document.querySelector('.popup_type_edit');
-const popupName = profilePopup.querySelector('.form__item_profile_name');
-const popupProfession = profilePopup.querySelector('.form__item_profile_profession');
-// const profileName = document.querySelector('.profile__name');
-// const profileProfession = document.querySelector('.profile__profession');
-const formElement = profilePopup.querySelector('.form_type_edit');
-//Переменные карточек массива
-// const elements = document.querySelector('.elements');
-//Переменные кнопки 'добавить карточку'
-const popupOpenAddCard = document.querySelector('.profile__add-button');
-const popupAddcard = document.querySelector('.popup_type_new-card');
-const popupAddcardName = popupAddcard.querySelector('.form__item_namemesto');
-const popupAddcardLink = popupAddcard.querySelector('.form__item_linkfoto');
-const formElementAddcard = document.forms.addcard;
-//Переменные открытия фото
-// const popupPhoto = document.querySelector('.popup_type_image');
-// const imagePopupPicture = popupPhoto.querySelector('.popup__photo');
-// const imagePopupCaption = popupPhoto.querySelector('.popup__textphoto');
-
-// конфиг для валидации
-const config = {
-  formSelector: '.form',
-  inputSelector: '.form__item',
-  submitButtonSelector: '.form__submit',
-  inactiveButtonClass: 'popup__submit_inactive',
-  inputErrorClass: 'form__item_type_error',
-  errorClass: 'form__input-error_active'
-}
+import {
+  popupOpenProfile,
+  popupName,
+  popupProfession,
+  formElement,
+  popupOpenAddCard,
+  formElementAddcard,
+  initialCardsNew,
+  config,
+} from './utils/constants.js';
 
 
-
-// массив с карточками
-const initialCardsNew = [
-  {
-    name: 'Мон-Сен-Мишель',
-    link: 'https://images.unsplash.com/photo-1562614174-c82de799351a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'
-  },
-  {
-    name: 'Лапландия',
-    link: 'https://images.unsplash.com/photo-1607020259898-bc4a1182ae75?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=647&q=80'
-  },
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-]; 
 
 // Создаем карточки из массива и помещаем их на страницу
 const defaultCardList = new Section({
   data: initialCardsNew,
   renderer: (object) => {
-    const card = new Card(object, '.element_template_type_default', handleCardClick);
-    const cardElement = card.generateCard();
+    const card = createCard(object, '.element_template_type_default', handleCardClick);
 
-    defaultCardList.setItem(cardElement);
+    defaultCardList.setItem(card);
   },
 }, '.elements');
 
@@ -92,25 +33,34 @@ const defaultCardList = new Section({
 defaultCardList.renderItems();
 
 
-//Создаем класс для попап Добавить карточку
+//Создаем класс для попап Добавить карточку и выкладываем готовую карточку на страницу
 const addCardNew = new PopupWithForm({
   popupSelector: '.popup_type_new-card',
-  handleFormSubmit: () => {
+  handleFormSubmit: (data) => {
     const object = {
-          name: popupAddcardName.value,
-          link: popupAddcardLink.value
+          name: data.namemesto_input,
+          link: data.link_input
         };
-    const card = new Card(object, '.element_template_type_default', handleCardClick);
-    const cardElement = card.generateCard();
+    const card = createCard(object, '.element_template_type_default', handleCardClick);
 
-    defaultCardList.setItemStart(cardElement);
+    defaultCardList.setItemStart(card);
     }
 })
 
+//создаем карточку использую класс и возвращаем ее
+function createCard(object, cardSelector, handleCardClick){
+  const card = new Card(object, cardSelector, handleCardClick);
+  const cardElement = card.generateCard();
+
+  return cardElement;
+}
+
+
 // Функция открытия фото
 function handleCardClick(name, link) {
-  const elementFoto = new PopupWithImage('.popup_type_image');
+  const elementFoto = new PopupWithImage('.popup_type_image');//извините, не очень понял что тут не так((
   elementFoto.open(name, link);
+  elementFoto.setEventListeners();
 }
 
 
@@ -125,8 +75,11 @@ const userInformation = new UserInfo({
 //Создаем класс для попап Ученый
 const editProfile = new PopupWithForm({
   popupSelector: '.popup_type_edit',
-  handleFormSubmit: () => {
-    userInformation.setUserInfo(popupName.value, popupProfession.value);
+  // handleFormSubmit: () => {
+  //   userInformation.setUserInfo(popupName.value, popupProfession.value);
+  // }
+  handleFormSubmit: (data) => {
+    userInformation.setUserInfo(data.name_input, data.job_input);
   }
 })
 
@@ -140,13 +93,15 @@ popupOpenProfile.addEventListener('click', function() {
   popupName.value = userGetInfo.name;
   popupProfession.value = userGetInfo.info;
   editProfile.open();
+  editProfile.setEventListeners();
   validFormProfile.clearValidation();
 });
 
 //Открытие попапа Добавить карточку
 popupOpenAddCard.addEventListener('click', function() {
-  formElementAddcard.reset();
+  // formElementAddcard.reset();
   addCardNew.open();
+  addCardNew.setEventListeners();
   validFormAddCard.clearValidation();
 });
 
