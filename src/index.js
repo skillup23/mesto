@@ -55,10 +55,11 @@ function createCard(object, cardSelector, handleCardClick){
   return cardElement;
 }
 
+const elementFoto = new PopupWithImage('.popup_type_image');
 
 // Функция открытия фото
 function handleCardClick(name, link) {
-  const elementFoto = new PopupWithImage('.popup_type_image');//извините, не очень понял что тут не так((
+  // const elementFoto = new PopupWithImage('.popup_type_image');//извините, не очень понял что тут не так((
   elementFoto.open(name, link);
   elementFoto.setEventListeners();
 }
