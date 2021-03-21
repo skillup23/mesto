@@ -6,11 +6,15 @@ export default class Section {
     this._container = document.querySelector(containerSelector);
   }
 
-  renderItems() {
+  renderItems(userData) {
     this._renderedItems.forEach((object) => {
-      this._renderer(object);
+      this._renderer(object, userData);
     }); 
   }
+  // renderItems(userData) {
+  //   this._renderedItems.forEach(object => 
+  //     this._renderer(object, userData));
+  // }
 
   setItem(element) {
     this._container.append(element);
@@ -18,5 +22,9 @@ export default class Section {
 
   setItemStart(element) {
     this._container.prepend(element);
+  }
+
+  setRenderedItems(data) {
+    this._renderedItems = data;
   }
 }

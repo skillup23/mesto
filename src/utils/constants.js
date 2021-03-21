@@ -19,6 +19,9 @@ export const formElementAddcard = document.forms.addcard;
 // const popupPhoto = document.querySelector('.popup_type_image');
 // const imagePopupPicture = popupPhoto.querySelector('.popup__photo');
 // const imagePopupCaption = popupPhoto.querySelector('.popup__textphoto');
+export const profileAvatar = document.querySelector('.profile__avatar');
+export const popupAvatar = document.querySelector('.form__item_linkavatar');
+export const formElementAvatar = document.forms.editavatar;
 
 // конфиг для валидации
 export const config = {

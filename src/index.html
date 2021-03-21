@@ -18,7 +18,9 @@
     <main class="content">
 
       <section class="profile">
-        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
+        <div class="profile__avatar-contaner">
+          <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
+        </div>
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button type="button" aria-label="Редактировать" class="profile__edit-button"></button>
@@ -53,7 +55,7 @@
             <input id="job_input" type="text" required class="form__item form__item_profile_profession" minlength="2" maxlength="200">
             <span id="job_input-error" class="form__input-error"></span>
           </label>
-          <button type="submit" class="popup__submit form__submit">Сохранить</button>
+          <button type="submit" class="popup__submit popup__submit_save form__submit">Сохранить</button>
         </fieldset>
 
       </form>
@@ -75,7 +77,7 @@
             <input id="link_input" type="url" required class="form__item form__item_linkfoto" placeholder="Ссылка на картинку">
             <span id="link_input-error" class="form__input-error">Необходимо заполнить данное поле</span>
           </label>
-        <button type="submit" class="popup__submit form__submit popup__submit_inactive">Сохранить</button>
+        <button type="submit" class="popup__submit popup__submit_save form__submit popup__submit_inactive">Сохранить</button>
         </fieldset>
 
       </form>
@@ -90,6 +92,31 @@
       </div>
     </section>
 
+    <section class="popup popup_type_delete-card">
+      <form class="popup__container form form_type_delete-card" method="get" name="delcard" novalidate>
+        <h3 class="popup__title">Вы уверены?</h3>
+        <button type="button" class="popup__close popup__close_delete-card"></button>
+        <fieldset class="form__set">
+          <button type="submit" class="popup__submit form__submit">Да</button>
+        </fieldset>
+      </form>
+    </section>
+
+
+    <section class="popup popup_type_edit-avatar">
+      <form class="popup__container form form_type_edit-avatar" method="get" name="editavatar">
+        <h3 class="popup__title">Обновить аватар</h3>
+        <button type="button" class="popup__close popup__close_edit-avatar"></button>
+        <fieldset class="form__set">
+          <label class="form__field">
+            <input id="avatar_input" type="url" required class="form__item form__item_linkavatar" placeholder="Ссылка на аватар">
+            <span id="avatar_input-error" class="form__input-error">Необходимо заполнить данное поле</span>
+          </label>
+        <button type="submit" class="popup__submit popup__submit_save form__submit">Сохранить</button>
+        </fieldset>
+      </form>
+    </section>
+
 
     <template class="element_template element_template_type_default">
       <article class="element">
@@ -97,7 +124,10 @@
         <button type="button" class="element__delete"></button>
         <div class="element__info">
           <h2 class="element__name-mesto"></h2>
-          <button type="button" class="element__like"></button>
+          <div class="element__contaner-like">
+            <button type="button" class="element__like"></button>
+            <span class="element__like-number">0</span>
+          </div>
         </div>
       </article>
     </template>
