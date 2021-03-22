@@ -14,7 +14,7 @@ export const popupOpenAddCard = document.querySelector('.profile__add-button');
 // const popupAddcard = document.querySelector('.popup_type_new-card');
 // const popupAddcardName = popupAddcard.querySelector('.form__item_namemesto');
 // const popupAddcardLink = popupAddcard.querySelector('.form__item_linkfoto');
-export const formElementAddcard = document.forms.addcard;
+export const formElementAddcard = document.querySelector('.form_type_addcard');
 //Переменные открытия фото
 // const popupPhoto = document.querySelector('.popup_type_image');
 // const imagePopupPicture = popupPhoto.querySelector('.popup__photo');
@@ -22,6 +22,7 @@ export const formElementAddcard = document.forms.addcard;
 export const profileAvatar = document.querySelector('.profile__avatar');
 export const popupAvatar = document.querySelector('.form__item_linkavatar');
 export const formElementAvatar = document.forms.editavatar;
+export const elementTemplate = '.element_template_type_default';
 
 // конфиг для валидации
 export const config = {
@@ -33,7 +34,16 @@ export const config = {
   errorClass: 'form__input-error_active'
 }
 
-
+//функция Сохранение...
+export function renderLoading(data, isLoading) {
+  const popupTextSave = document.querySelector(data).querySelector('.popup__submit_save');
+  if (isLoading) {
+    popupTextSave.textContent = 'Сохранение...';
+  }
+  else {
+    popupTextSave.textContent = 'Сохранить';
+  }
+}
 
 // массив с карточками
 export const initialCardsNew = [

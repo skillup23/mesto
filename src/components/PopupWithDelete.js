@@ -20,7 +20,7 @@ export default class PopupWithDelete extends Popup {
     this._delete = data
   }
 
-  close() {
-    super.close();
-  }
+  // close() {
+  //   super.close();
+  // }
 }

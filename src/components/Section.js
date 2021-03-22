@@ -16,11 +16,11 @@ export default class Section {
   //     this._renderer(object, userData));
   // }
 
-  setItem(element) {
+  appendCard(element) {
     this._container.append(element);
   }
 
-  setItemStart(element) {
+  prependCard(element) {
     this._container.prepend(element);
   }
 

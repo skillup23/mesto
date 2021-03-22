@@ -1,11 +1,11 @@
-import FormValidator from './components/FormValidator.js';
-import Card from './components/Card.js';
-import Section from './components/Section.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import UserInfo from './components/UserInfo.js';
-import PopupWithDelete from './components/PopupWithDelete.js'
-import './pages/index.css'
+import FormValidator from '../components/FormValidator.js';
+import Card from '../components/Card.js';
+import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+import PopupWithDelete from '../components/PopupWithDelete.js'
+import './index.css'
 
 import {
   popupOpenProfile,
@@ -17,12 +17,20 @@ import {
   initialCardsNew,
   config,
   profileAvatar,
-  popupAvatar,
   formElementAvatar,
-} from './utils/constants.js';
+  elementTemplate,
+  renderLoading,
+} from '../utils/constants.js';
 
-import Api from './components/Api.js';
-const api = new Api();
+import Api from '../components/Api.js';
+const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1',
+  groupId: 'cohort-21',
+  headers: {
+    authorization: '05f91987-8317-4af4-b0c3-253fbec9cd8b',
+    'Content-Type': 'application/json'
+  }
+});
 
 //===================================================================================================
 //Реализация карточкек из сервера
@@ -62,38 +70,29 @@ function createCard(data, userData, cardSelector){
 // Создаем карточки из массива и помещаем их на страницу
 const defaultCardList = new Section({
   data: {},
-  renderer: (object, userData) => {
-    const card = createCard(object, userData, '.element_template_type_default');
+  renderer: (data, userData) => {
+    const card = createCard(data, userData, elementTemplate);
 
-    defaultCardList.setItem(card);
+    defaultCardList.appendCard(card);
   },
 }, '.elements');
 
-//функция Сохранение...
-function renderLoading(data, isLoading) {
-  const popupTextSave = document.querySelector(data).querySelector('.popup__submit_save');
-  if (isLoading) {
-    popupTextSave.textContent = 'Сохранение...';
-  }
-  else {
-    popupTextSave.textContent = 'Сохранить';
-  }
-}
 
 //===================================================================================================
 //Реализация добавления своей карточи на страницу
 
 //Создаем класс для попап Добавить карточку и выкладываем готовую карточку на страницу
-const addCardNew = new PopupWithForm({
+const popupAddCard = new PopupWithForm({
   popupSelector: '.popup_type_new-card',
+  popupForm: '.form_type_addcard',
   handleFormSubmit: (value) => {
     renderLoading('.popup_type_new-card', true);
     api.addNewCard({ name: value.namemesto_input, link: value.link_input})
       .then(data => {
-        const card = createCard(data, userInformation.getUserInfo(), '.element_template_type_default');
+        const card = createCard(data, userInformation.getUserInfo(), elementTemplate);
 
-        defaultCardList.setItemStart(card);
-        addCardNew.close();
+        defaultCardList.prependCard(card);
+        popupAddCard.close();
       })
       .catch((error) => {
         console.log(error)
@@ -105,43 +104,43 @@ const addCardNew = new PopupWithForm({
 })
 
 //Навешиваем обработчики для попап Добавить карточку
-addCardNew.setEventListeners();
+popupAddCard.setEventListeners();
 
 //Открытие попапа Добавить карточку
 popupOpenAddCard.addEventListener('click', function() {
   // formElementAddcard.reset();
-  addCardNew.open();
-  // addCardNew.setEventListeners();
+  popupAddCard.open();
+  // popupAddCard.setEventListeners();
   validFormAddCard.clearValidation();
 });
 
 
 //создаем экземпляр попапа Фото
-const elementFoto = new PopupWithImage('.popup_type_image');
+const popupPhoto = new PopupWithImage('.popup_type_image');
 //Навешиваем обработчики для попап Добавить карточку
-elementFoto.setEventListeners();
+popupPhoto.setEventListeners();
 
 // Функция открытия фото
 function handleCardClick(name, link) {
-  elementFoto.open(name, link);
+  popupPhoto.open(name, link);
 }
 
 // Функция открытия удаления фото
 function handleDeleteIconClick (element, cardId) {
-  popapDelCard.open({ element, cardId })
+  popupDeleteCard.open({ element, cardId })
 }
 
 
 
 
 //Создаем класс для попап Удаления карточки
-const popapDelCard = new PopupWithDelete({
+const popupDeleteCard = new PopupWithDelete({
   popupSelector: '.popup_type_delete-card',
   handleFormSubmit: ( {element, cardId} ) => {
     api.delCard(cardId)
       .then(() => {
         element.remove();
-        popapDelCard.close()
+        popupDeleteCard.close()
       })
       .catch((error) => {
         console.log(error)
@@ -149,13 +148,13 @@ const popapDelCard = new PopupWithDelete({
   }
 });
 //вешаем слушатели на попап Удаления карточки
-popapDelCard.setEventListeners();
+popupDeleteCard.setEventListeners();
 
 
 //информация полученная с серввера
-const apiInfoCardsPerson = [api.getInitialCards(), api.getPersonInfo()]
+const getAllData = [api.getInitialCards(), api.getPersonInfo()]
 
-Promise.all(apiInfoCardsPerson)//думал вот не зря же Дмитрий Ханин написал про Promise.all
+Promise.all(getAllData)//думал вот не зря же Дмитрий Ханин написал про Promise.all
   .then(([resultCard, resultUser]) => {// и так таки верно
     userInformation.setUserInfo(resultUser._id, resultUser.name, resultUser.about, resultUser.avatar)
     defaultCardList.setRenderedItems(resultCard);
@@ -178,14 +177,15 @@ const userInformation = new UserInfo({
 });
 
 //Создаем класс для попап Ученый
-const editProfile = new PopupWithForm({
+const popupEditProfile = new PopupWithForm({
   popupSelector: '.popup_type_edit',
+  popupForm: '.form_type_addcard',
   handleFormSubmit: (value) => {
     renderLoading('.popup_type_edit', true);
     api.sendUserInformation({ name: value.name_input, about: value.job_input })
       .then(result => {
         userInformation.setUserInfo(result._id, result.name, result.about, result.avatar);
-        editProfile.close();
+        popupEditProfile.close();
       })
       .catch((error) => {
         console.log(error)
@@ -199,6 +199,7 @@ const editProfile = new PopupWithForm({
 //Создаем класс для попап Аватар
 const popupEditAvatar = new PopupWithForm({
   popupSelector: '.popup_type_edit-avatar',
+  popupForm: '.form_type_edit-avatar',
   handleFormSubmit: (value) => {
     renderLoading('.popup_type_edit-avatar', true)
     api.editAvatar( {avatar: value.avatar_input} )
@@ -217,7 +218,7 @@ const popupEditAvatar = new PopupWithForm({
 
 
 //навешиваем обработчики для попап Ученый
-editProfile.setEventListeners();
+popupEditProfile.setEventListeners();
 popupEditAvatar.setEventListeners();
 
 
@@ -226,20 +227,16 @@ popupOpenProfile.addEventListener('click', function() {
   const userGetInfo = userInformation.getUserInfo();
   popupName.value = userGetInfo.name;
   popupProfession.value = userGetInfo.info;
-  editProfile.open();
-  // editProfile.setEventListeners();
+  popupEditProfile.open();
+  // popupEditProfile.setEventListeners();
   validFormProfile.clearValidation();
 });
 
-//перенести в константы================================================================================
-// const profileAvatar = document.querySelector('.profile__avatar');
-// const popupAvatar = document.querySelector('.form__item_linkavatar');
-// const formElementAvatar = document.forms.editavatar;
 
 //Открытие попапа Аватар на кнопку Иконку
 profileAvatar.addEventListener('click', function() {
-  const userGetInfo = userInformation.getUserInfo();
-  popupAvatar.value = userGetInfo.avatar;
+  // const userGetInfo = userInformation.getUserInfo();
+  // popupAvatar.value = userGetInfo.avatar;
   popupEditAvatar.open();
   validAvatarProfile.clearValidation();
 });
@@ -258,23 +255,3 @@ validFormAddCard.enableValidation();
 const validAvatarProfile = new FormValidator(config, formElementAvatar);
 validAvatarProfile.enableValidation();
 
-
-
-
-// api.getInitialCards()
-//   .then((result) => {
-//     defaultCardList.setRenderedItems(result);
-//     defaultCardList.renderItems(result);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-
-// api.getPersonInfo()
-//   .then((result) => {
-//     userInformation.setUserInfo(result._id, result.name, result.about, result.avatar);
-//     console.log(result._id)
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });

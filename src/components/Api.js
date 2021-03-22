@@ -1,14 +1,14 @@
 export default class Api {
-  constructor() {
-
+  constructor({ url, groupId, headers} ) {
+      this._url = url;
+      this._groupId = groupId;
+      this._headers = headers;
   }
 
   getInitialCards() {
-      return fetch('https://mesto.nomoreparties.co/v1/cohort-21/cards', {
+      return fetch(`${this._url}/${this._groupId}/cards`, {
           method: 'GET',
-          headers: {
-              authorization: '05f91987-8317-4af4-b0c3-253fbec9cd8b'
-          }
+          headers: this._headers
       })
           .then(res => {
               if (res.ok) {
@@ -20,12 +20,9 @@ export default class Api {
   }
 
   getPersonInfo() {
-      return fetch('https://mesto.nomoreparties.co/v1/cohort-21/users/me', {
+      return fetch(`${this._url}/${this._groupId}/users/me`, {
           method: 'GET',
-          headers: {
-              authorization: '05f91987-8317-4af4-b0c3-253fbec9cd8b',
-              'Content-Type': 'application/json'
-          }
+          headers: this._headers
       })
           .then(res => {
               if (res.ok) {
@@ -37,12 +34,9 @@ export default class Api {
   }
 
   sendUserInformation(data) {
-      return fetch('https://mesto.nomoreparties.co/v1/cohort-21/users/me', {
+      return fetch(`${this._url}/${this._groupId}/users/me`, {
           method: 'PATCH',
-          headers: {
-              authorization: '05f91987-8317-4af4-b0c3-253fbec9cd8b',
-              'Content-Type': 'application/json'
-          },
+          headers: this._headers,
           body: JSON.stringify({
               name: data.name,
               about: data.about
@@ -58,12 +52,9 @@ export default class Api {
   }
 
   addNewCard(data) {
-      return fetch('https://mesto.nomoreparties.co/v1/cohort-21/cards', {
+      return fetch(`${this._url}/${this._groupId}/cards`, {
           method: 'POST',
-          headers: {
-              authorization: '05f91987-8317-4af4-b0c3-253fbec9cd8b',
-              'Content-Type': 'application/json'
-          },
+          headers: this._headers,
           body: JSON.stringify({
               name: data.name,
               link: data.link
@@ -79,12 +70,9 @@ export default class Api {
   }
 
   delCard(cardId) {
-      return fetch(`https://mesto.nomoreparties.co/v1/cohort-21/cards/${cardId}`, {
+      return fetch(`${this._url}/${this._groupId}/cards/${cardId}`, {
           method: 'DELETE',
-          headers: {
-              authorization: '05f91987-8317-4af4-b0c3-253fbec9cd8b',
-              'Content-Type': 'application/json'
-          },
+          headers: this._headers,
       })
           .then(res => {
               if (res.ok) {
@@ -96,12 +84,9 @@ export default class Api {
   }
 
   likeCard(cardId) {
-      return fetch(`https://mesto.nomoreparties.co/v1/cohort-21/cards/likes/${cardId}`, {
+      return fetch(`${this._url}/${this._groupId}/cards/likes/${cardId}`, {
           method: 'PUT',
-          headers: {
-              authorization: '05f91987-8317-4af4-b0c3-253fbec9cd8b',
-              'Content-Type': 'application/json'
-          },
+          headers: this._headers,
       })
           .then(res => {
               if (res.ok) {
@@ -113,12 +98,9 @@ export default class Api {
   }
 
   removelikeCard(cardId) {
-      return fetch(`https://mesto.nomoreparties.co/v1/cohort-21/cards/likes/${cardId}`, {
+      return fetch(`${this._url}/${this._groupId}/cards/likes/${cardId}`, {
           method: 'DELETE',
-          headers: {
-              authorization: '05f91987-8317-4af4-b0c3-253fbec9cd8b',
-              'Content-Type': 'application/json'
-          },
+          headers: this._headers,
       })
           .then(res => {
               if (res.ok) {
@@ -130,12 +112,9 @@ export default class Api {
   }
 
   editAvatar(data) {
-      return fetch('https://mesto.nomoreparties.co/v1/cohort-21/users/me/avatar', {
+      return fetch(`${this._url}/${this._groupId}/users/me/avatar`, {
           method: 'PATCH',
-          headers: {
-              authorization: '05f91987-8317-4af4-b0c3-253fbec9cd8b',
-              'Content-Type': 'application/json'
-          },
+          headers: this._headers,
           body: JSON.stringify({
               avatar: data.avatar
           })

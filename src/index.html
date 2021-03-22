@@ -22,9 +22,9 @@
           <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
         </div>
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button type="button" aria-label="Редактировать" class="profile__edit-button"></button>
-          <p class="profile__profession">Исследователь океана</p>
+          <h1 class="profile__name" >Жак-Ив Кусто</h1>
+          <button type="button" aria-label="Редактировать" class="profile__edit-button" ></button>
+          <p class="profile__profession" >Исследователь океана</p>
         </div>
         <button type="button" class="profile__add-button"></button>
       </section>
@@ -48,11 +48,11 @@
 
         <fieldset class="form__set">
           <label class="form__field">
-            <input id="name_input" type="text" required class="form__item form__item_profile_name" minlength="2" maxlength="40">
+            <input id="name_input" type="text" required class="form__item form__item_profile_name" placeholder="Имя" minlength="2" maxlength="40">
             <span id="name_input-error" class="form__input-error"></span>
           </label>
           <label class="form__field">
-            <input id="job_input" type="text" required class="form__item form__item_profile_profession" minlength="2" maxlength="200">
+            <input id="job_input" type="text" required class="form__item form__item_profile_profession" placeholder="Вид деятельности" minlength="2" maxlength="200">
             <span id="job_input-error" class="form__input-error"></span>
           </label>
           <button type="submit" class="popup__submit popup__submit_save form__submit">Сохранить</button>
