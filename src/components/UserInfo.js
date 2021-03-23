@@ -18,16 +18,17 @@ export default class UserInfo{
   }
 
   setUserInfo(id, userName, userInfo, userAvatar) {
-    if(this._id = id){
-      this._id = id;
-      this._name.textContent = userName;
-      this._info.textContent = userInfo;
-      this._avatar.src = userAvatar;
-    }
-    // this._id = id;
-    // this._name.textContent = userName;
-    // this._info.textContent = userInfo;
-    // this._avatar.src = userAvatar;
+    if(this._id !== ''){
+      this._id = id
+    };
+    if(this._name.textContent !== ''){
+      this._name.textContent = userName
+    };
+    if(this._info.textContent !== ''){
+      this._info.textContent = userInfo
+    };
+    if(this._avatar.src !== ''){
+      this._avatar.src = userAvatar
+    };
   }
 }
-

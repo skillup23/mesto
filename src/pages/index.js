@@ -20,6 +20,7 @@ import {
   formElementAvatar,
   elementTemplate,
   renderLoading,
+  elementSelector,
 } from '../utils/constants.js';
 
 import Api from '../components/Api.js';
@@ -75,17 +76,17 @@ const defaultCardList = new Section({
 
     defaultCardList.appendCard(card);
   },
-}, '.elements');
+}, elementSelector);
 
 
 //===================================================================================================
 //Реализация добавления своей карточи на страницу
 
 //Создаем класс для попап Добавить карточку и выкладываем готовую карточку на страницу
-const popupAddCard = new PopupWithForm({
-  popupSelector: '.popup_type_new-card',
-  popupForm: '.form_type_addcard',
-  handleFormSubmit: (value) => {
+const popupAddCard = new PopupWithForm(
+  '.popup_type_new-card',
+  // popupForm: '.form_type_addcard',
+  (value) => {
     renderLoading('.popup_type_new-card', true);
     api.addNewCard({ name: value.namemesto_input, link: value.link_input})
       .then(data => {
@@ -100,7 +101,6 @@ const popupAddCard = new PopupWithForm({
       .finally(() => {
         renderLoading('.popup_type_new-card', false);
       });
-  }
 })
 
 //Навешиваем обработчики для попап Добавить карточку
@@ -177,10 +177,10 @@ const userInformation = new UserInfo({
 });
 
 //Создаем класс для попап Ученый
-const popupEditProfile = new PopupWithForm({
-  popupSelector: '.popup_type_edit',
-  popupForm: '.form_type_addcard',
-  handleFormSubmit: (value) => {
+const popupEditProfile = new PopupWithForm(
+  '.popup_type_edit',
+  // popupForm: '.form_type_addcard',
+  (value) => {
     renderLoading('.popup_type_edit', true);
     api.sendUserInformation({ name: value.name_input, about: value.job_input })
       .then(result => {
@@ -193,14 +193,13 @@ const popupEditProfile = new PopupWithForm({
       .finally(() => {
         renderLoading('.popup_type_edit', false);
       });
-  }
 });
 
 //Создаем класс для попап Аватар
-const popupEditAvatar = new PopupWithForm({
-  popupSelector: '.popup_type_edit-avatar',
-  popupForm: '.form_type_edit-avatar',
-  handleFormSubmit: (value) => {
+const popupEditAvatar = new PopupWithForm(
+  '.popup_type_edit-avatar',
+  // popupForm: '.form_type_edit-avatar',
+  (value) => {
     renderLoading('.popup_type_edit-avatar', true)
     api.editAvatar( {avatar: value.avatar_input} )
       .then(result => {
@@ -213,7 +212,6 @@ const popupEditAvatar = new PopupWithForm({
       .finally(() => {
         renderLoading('.popup_type_edit-avatar', false);
       });
-  }
 })
 
 

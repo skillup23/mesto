@@ -23,6 +23,7 @@ export const profileAvatar = document.querySelector('.profile__avatar');
 export const popupAvatar = document.querySelector('.form__item_linkavatar');
 export const formElementAvatar = document.forms.editavatar;
 export const elementTemplate = '.element_template_type_default';
+export const elementSelector = '.elements';
 
 // конфиг для валидации
 export const config = {
