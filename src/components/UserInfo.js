@@ -18,16 +18,16 @@ export default class UserInfo{
   }
 
   setUserInfo(id, userName, userInfo, userAvatar) {
-    if(this._id !== ''){
+    if(id){
       this._id = id
     };
-    if(this._name.textContent !== ''){
+    if(userName){
       this._name.textContent = userName
     };
-    if(this._info.textContent !== ''){
+    if(userInfo){
       this._info.textContent = userInfo
     };
-    if(this._avatar.src !== ''){
+    if(userAvatar){
       this._avatar.src = userAvatar
     };
   }

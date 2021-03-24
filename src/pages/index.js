@@ -14,13 +14,19 @@ import {
   formElement,
   popupOpenAddCard,
   formElementAddcard,
-  initialCardsNew,
   config,
   profileAvatar,
   formElementAvatar,
   elementTemplate,
   renderLoading,
   elementSelector,
+  selectorPopupNewCard,
+  selectorPopupImage,
+  selectorPopupDeleteCard,
+  selectorPopupEdit,
+  selectorPopupEditAvatar,
+  profileName,
+  profileProfession,
 } from '../utils/constants.js';
 
 import Api from '../components/Api.js';
@@ -84,10 +90,9 @@ const defaultCardList = new Section({
 
 //Создаем класс для попап Добавить карточку и выкладываем готовую карточку на страницу
 const popupAddCard = new PopupWithForm(
-  '.popup_type_new-card',
-  // popupForm: '.form_type_addcard',
+  selectorPopupNewCard,
   (value) => {
-    renderLoading('.popup_type_new-card', true);
+    renderLoading(selectorPopupNewCard, true);
     api.addNewCard({ name: value.namemesto_input, link: value.link_input})
       .then(data => {
         const card = createCard(data, userInformation.getUserInfo(), elementTemplate);
@@ -99,7 +104,7 @@ const popupAddCard = new PopupWithForm(
         console.log(error)
       })
       .finally(() => {
-        renderLoading('.popup_type_new-card', false);
+        renderLoading(selectorPopupNewCard, false);
       });
 })
 
@@ -116,7 +121,8 @@ popupOpenAddCard.addEventListener('click', function() {
 
 
 //создаем экземпляр попапа Фото
-const popupPhoto = new PopupWithImage('.popup_type_image');
+const popupPhoto = new PopupWithImage(selectorPopupImage);
+
 //Навешиваем обработчики для попап Добавить карточку
 popupPhoto.setEventListeners();
 
@@ -135,7 +141,7 @@ function handleDeleteIconClick (element, cardId) {
 
 //Создаем класс для попап Удаления карточки
 const popupDeleteCard = new PopupWithDelete({
-  popupSelector: '.popup_type_delete-card',
+  popupSelector: selectorPopupDeleteCard,
   handleFormSubmit: ( {element, cardId} ) => {
     api.delCard(cardId)
       .then(() => {
@@ -171,17 +177,16 @@ Promise.all(getAllData)//думал вот не зря же Дмитрий Ха�
 
 //Класс с информацией о пользователе
 const userInformation = new UserInfo({
-  name: document.querySelector('.profile__name'),
-  info: document.querySelector('.profile__profession'),
-  avatar: document.querySelector('.profile__avatar')
+  name: profileName,
+  info: profileProfession,
+  avatar: profileAvatar
 });
 
 //Создаем класс для попап Ученый
 const popupEditProfile = new PopupWithForm(
-  '.popup_type_edit',
-  // popupForm: '.form_type_addcard',
+  selectorPopupEdit,
   (value) => {
-    renderLoading('.popup_type_edit', true);
+    renderLoading(selectorPopupEdit, true);
     api.sendUserInformation({ name: value.name_input, about: value.job_input })
       .then(result => {
         userInformation.setUserInfo(result._id, result.name, result.about, result.avatar);
@@ -191,16 +196,15 @@ const popupEditProfile = new PopupWithForm(
         console.log(error)
       })
       .finally(() => {
-        renderLoading('.popup_type_edit', false);
+        renderLoading(selectorPopupEdit, false);
       });
 });
 
 //Создаем класс для попап Аватар
 const popupEditAvatar = new PopupWithForm(
-  '.popup_type_edit-avatar',
-  // popupForm: '.form_type_edit-avatar',
+  selectorPopupEditAvatar,
   (value) => {
-    renderLoading('.popup_type_edit-avatar', true)
+    renderLoading(selectorPopupEditAvatar, true)
     api.editAvatar( {avatar: value.avatar_input} )
       .then(result => {
         userInformation.setUserInfo(result._id, result.name, result.about, result.avatar);
@@ -210,7 +214,7 @@ const popupEditAvatar = new PopupWithForm(
         console.log(error)
       })
       .finally(() => {
-        renderLoading('.popup_type_edit-avatar', false);
+        renderLoading(selectorPopupEditAvatar, false);
       });
 })
 

@@ -4,8 +4,9 @@ export const popupOpenProfile = document.querySelector('.profile__edit-button');
 export const profilePopup = document.querySelector('.popup_type_edit');
 export const popupName = profilePopup.querySelector('.form__item_profile_name');
 export const popupProfession = profilePopup.querySelector('.form__item_profile_profession');
-// const profileName = document.querySelector('.profile__name');
-// const profileProfession = document.querySelector('.profile__profession');
+export const profileName = document.querySelector('.profile__name');
+export const profileProfession = document.querySelector('.profile__profession');
+export const profileAvatar = document.querySelector('.profile__avatar');
 export const formElement = profilePopup.querySelector('.form_type_edit');
 //Переменные карточек массива
 // const elements = document.querySelector('.elements');
@@ -19,11 +20,15 @@ export const formElementAddcard = document.querySelector('.form_type_addcard');
 // const popupPhoto = document.querySelector('.popup_type_image');
 // const imagePopupPicture = popupPhoto.querySelector('.popup__photo');
 // const imagePopupCaption = popupPhoto.querySelector('.popup__textphoto');
-export const profileAvatar = document.querySelector('.profile__avatar');
 export const popupAvatar = document.querySelector('.form__item_linkavatar');
 export const formElementAvatar = document.forms.editavatar;
 export const elementTemplate = '.element_template_type_default';
 export const elementSelector = '.elements';
+export const selectorPopupNewCard = '.popup_type_new-card';
+export const selectorPopupImage = '.popup_type_image';
+export const selectorPopupDeleteCard = '.popup_type_delete-card';
+export const selectorPopupEdit = '.popup_type_edit';
+export const selectorPopupEditAvatar = '.popup_type_edit-avatar';
 
 // конфиг для валидации
 export const config = {
